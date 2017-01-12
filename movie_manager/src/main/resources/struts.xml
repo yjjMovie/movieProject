@@ -6,6 +6,10 @@
 
 <struts>
     <package name="struts" extends="struts-default,json-default" strict-method-invocation="false">
-
+        <action name="findAdmin" class="org.movie.action.AdminAction" method="findAdmin">
+            <result name="jsonAdmin" type="json">
+                <param name="root">admin</param>
+            </result>
+        </action>
     </package>
 </struts>
