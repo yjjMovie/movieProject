@@ -22,6 +22,7 @@ public class Order {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "order_id")
     public int getOrderId() {
         return orderId;
     }

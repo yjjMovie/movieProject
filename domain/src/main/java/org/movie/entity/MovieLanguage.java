@@ -20,6 +20,7 @@ public class MovieLanguage {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "language_id")
     public int getMovieLanguageId() {
         return movieLanguageId;
     }

@@ -21,6 +21,7 @@ public class Admin {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "admin_id")
     public int getAdminId() {
         return adminId;
     }

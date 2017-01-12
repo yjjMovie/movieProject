@@ -20,6 +20,7 @@ public class MovieType {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "type_id")
     public int getMovieTypeId() {
         return movieTypeId;
     }

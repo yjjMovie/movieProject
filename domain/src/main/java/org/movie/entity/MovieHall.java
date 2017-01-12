@@ -22,6 +22,7 @@ public class MovieHall {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "hall_id")
     public int getMovieHallId() {
         return movieHallId;
     }

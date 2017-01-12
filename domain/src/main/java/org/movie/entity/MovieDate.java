@@ -17,6 +17,7 @@ public class MovieDate {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "date_id")
     public int getMovieDateId() {
         return movieDateId;
     }

@@ -25,6 +25,7 @@ public class OrderItem {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "item_id")
     public int getItemId() {
         return itemId;
     }
@@ -71,7 +72,7 @@ public class OrderItem {
     }
 
     @ManyToOne
-    @JoinColumn(name="item_id")
+    @JoinColumn(name="session_id")
     public MovieSession getMovieSession() {
         return movieSession;
     }

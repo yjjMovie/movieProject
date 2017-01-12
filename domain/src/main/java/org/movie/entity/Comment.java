@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * 用户评论实体类==
+ * 用户评论实体类
  * Created by Administrator on 2017/01/11.
  */
 @Entity
@@ -21,6 +21,7 @@ public class Comment {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "comment_id")
     public int getCommentId() {
         return commentId;
     }

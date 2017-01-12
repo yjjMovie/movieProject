@@ -25,6 +25,7 @@ public class Showing {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "showing_id")
     public int getShowingId() {
         return showingId;
     }

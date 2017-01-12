@@ -24,6 +24,7 @@ public class MovieSession {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "session_id")
     public int getSessionId() {
         return sessionId;
     }

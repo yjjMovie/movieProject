@@ -18,6 +18,7 @@ public class MovieArea {
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
+    @Column(name = "area_id")
     public int getMovieAreaId() {
         return movieAreaId;
     }
