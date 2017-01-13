@@ -11,18 +11,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "movie_date")
 public class MovieDate {
-    private int movieDateId;
+    private String movieDateId;
     private String movieDateName;
 
     @Id
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "date_id")
-    public int getMovieDateId() {
+    public String getMovieDateId() {
         return movieDateId;
     }
 
-    public void setMovieDateId(int movieDateId) {
+    public void setMovieDateId(String movieDateId) {
         this.movieDateId = movieDateId;
     }
 

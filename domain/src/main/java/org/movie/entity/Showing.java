@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "showing_info")
 public class Showing {
-    private int showingId;
+    private String showingId;
     //上架时间
     private Date showingTime;
     //下架时间
@@ -26,11 +26,11 @@ public class Showing {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "showing_id")
-    public int getShowingId() {
+    public String getShowingId() {
         return showingId;
     }
 
-    public void setShowingId(int showingId) {
+    public void setShowingId(String showingId) {
         this.showingId = showingId;
     }
 

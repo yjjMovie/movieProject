@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "comment_info")
 public class Comment {
-    private int commentId;
+    private String commentId;
     private String commentDesc;
     private Date commentTime;
     private User user;
@@ -22,11 +22,11 @@ public class Comment {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "comment_id")
-    public int getCommentId() {
+    public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 

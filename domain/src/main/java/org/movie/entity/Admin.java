@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "admin_info")
 public class Admin {
 
-    private int adminId;
+    private String adminId;
     private String adminName;
     private String adminPassword;
     private int ver;
@@ -22,11 +22,11 @@ public class Admin {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "admin_id")
-    public int getAdminId() {
+    public String getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(int adminId) {
+    public void setAdminId(String adminId) {
         this.adminId = adminId;
     }
 

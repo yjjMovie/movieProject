@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "order_item")
 public class OrderItem {
-    private int itemId;
+    private String itemId;
     //购票数量
     private int itemNum;
     //下单时间
@@ -26,11 +26,11 @@ public class OrderItem {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "item_id")
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

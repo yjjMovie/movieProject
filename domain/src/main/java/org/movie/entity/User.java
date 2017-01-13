@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_info")
 public class User {
-    private int userId;
+    private String userId;
     private String userName;
     private String userPassword;
     private int userAge;
@@ -23,11 +23,11 @@ public class User {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "user_id")
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

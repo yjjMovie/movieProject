@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "order_info")
 public class Order {
-    private int orderId;
+    private String orderId;
     //总计
     private double total;
     private Set<OrderItem> orderItems  = new HashSet<>();
@@ -23,11 +23,11 @@ public class Order {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "order_id")
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

@@ -13,7 +13,7 @@ import java.util.Set;
 @Table
 @Entity(name = "movie_info")
 public class Movie {
-    private int movieId;
+    private String movieId;
     private String movieName;
     private String movieDesc;
     private String moviePhoto;
@@ -31,11 +31,11 @@ public class Movie {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "movie_id")
-    public int getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(int movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 

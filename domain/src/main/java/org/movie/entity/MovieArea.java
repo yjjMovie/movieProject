@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "movie_area")
 public class MovieArea {
-    private int movieAreaId;
+    private String movieAreaId;
     private String movieAreaName;
 
 
@@ -19,11 +19,11 @@ public class MovieArea {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "area_id")
-    public int getMovieAreaId() {
+    public String getMovieAreaId() {
         return movieAreaId;
     }
 
-    public void setMovieAreaId(int movieAreaId) {
+    public void setMovieAreaId(String movieAreaId) {
         this.movieAreaId = movieAreaId;
     }
 

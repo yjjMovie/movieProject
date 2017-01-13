@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "movie_session")
 public class MovieSession {
-    private int sessionId;
+    private String sessionId;
     private double sessionPrice;
     //播放时间
     private Date startTime;
@@ -25,11 +25,11 @@ public class MovieSession {
     @GeneratedValue(generator="myuuid")
     @GenericGenerator(name="myuuid",strategy="uuid")
     @Column(name = "session_id")
-    public int getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(int sessionId) {
+    public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
 
