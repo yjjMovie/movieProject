@@ -15,7 +15,8 @@ import java.util.Set;
 public class MovieLanguage {
     private String movieLanguageId;
     private String movieLanguageName;
-    private Set<Movie> movies = new HashSet<>();
+    //private Movie movie;
+    //private Set<Movie> movies = new HashSet<>();
 
     @Id
     @GeneratedValue(generator="myuuid")
@@ -38,6 +39,17 @@ public class MovieLanguage {
         this.movieLanguageName = movieLanguageName;
     }
 
+    /*@ManyToOne
+    @JoinColumn(name="movie_id")
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }*/
+
+    /*
     @ManyToMany(fetch=FetchType.LAZY)
     //多对多关联需要指定中间表，需要使用JoinTable
     //name指定中间表的表名
@@ -52,5 +64,5 @@ public class MovieLanguage {
 
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
-    }
+    }*/
 }

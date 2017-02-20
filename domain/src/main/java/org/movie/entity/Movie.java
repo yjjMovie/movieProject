@@ -93,7 +93,7 @@ public class Movie {
         this.movieActor = movieActor;
     }
 
-    @ManyToMany(fetch=FetchType.LAZY,mappedBy="movies")
+    @OneToMany(fetch=FetchType.EAGER)
     public Set<MovieType> getMovieTypes() {
         return movieTypes;
     }
@@ -112,7 +112,7 @@ public class Movie {
         this.movieDate = movieDate;
     }
 
-    @ManyToMany(fetch=FetchType.LAZY,mappedBy="movies")
+    @OneToMany(fetch=FetchType.EAGER)
     public Set<MovieLanguage> getMovieLanguages() {
         return movieLanguages;
     }

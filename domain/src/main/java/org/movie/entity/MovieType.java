@@ -15,7 +15,9 @@ import java.util.Set;
 public class MovieType {
     private String movieTypeId;
     private String movieTypeName;
-    private Set<Movie> movies = new HashSet<>();
+    //private Movie movie;
+
+    //private Set<Movie> movies = new HashSet<>();
 
     @Id
     @GeneratedValue(generator="myuuid")
@@ -37,8 +39,17 @@ public class MovieType {
     public void setMovieTypeName(String movieTypeName) {
         this.movieTypeName = movieTypeName;
     }
+/*
+    @ManyToOne
+    @JoinColumn(name="movie_id")
+    public Movie getMovie() {
+        return movie;
+    }
 
-    @ManyToMany(fetch=FetchType.LAZY)
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }*/
+    /*@ManyToMany(fetch=FetchType.LAZY)
     //多对多关联需要指定中间表，需要使用JoinTable
     //name指定中间表的表名
     //joinColumns指定自己在中间表对应的外键列
@@ -52,5 +63,5 @@ public class MovieType {
 
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
-    }
+    }*/
 }
