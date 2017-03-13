@@ -5,11 +5,276 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-    <package name="struts" extends="struts-default,json-default" strict-method-invocation="false">
+
+
+    <!--设置编码格式，防止上传的文件名为中文的是乱码 -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <!-- 指定resource资源文件的名称 -->
+    <constant name="struts.custom.i18n.resources" value="message" />
+    <!-- 上传文件的总大小（单位：字节）， 默认是10M -->
+    <constant name="struts.multipart.maxSize" value="104857600" />
+
+    <!-- 管理员pkg -->
+    <package name="adminPkg" extends="struts-default,json-default" strict-method-invocation="false">
+        <!-- 查询全部管理员action -->
         <action name="findAdmin" class="org.movie.action.AdminAction" method="findAdmin">
-            <result name="jsonAdmin" type="json">
+            <result type="json">
+                <param name="root">adminList</param>
+            </result>
+        </action>
+        <!-- 根据ID查询管理员action -->
+        <action name="findAdminById" class="org.movie.action.AdminAction" method="findAdminById">
+            <result type="json">
                 <param name="root">admin</param>
             </result>
         </action>
+        <!-- 添加管理员action -->
+        <action name="addAdmin" class="org.movie.action.AdminAction" method="addAdmin">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+        <!-- 修改管理员action -->
+        <action name="updateAdmin" class="org.movie.action.AdminAction" method="updateAdmin">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+        <!-- 删除管理员action -->
+        <action name="deleteAdmin" class="org.movie.action.AdminAction" method="deleteAdmin">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
     </package>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 用户pkg -->
+    <package name="userPkg" extends="struts-default,json-default" strict-method-invocation="false">
+        <!-- 查询全部用户action -->
+        <action name="findUser" class="org.movie.action.UserAction" method="findUser">
+            <result type="json">
+                <param name="root">userList</param>
+            </result>
+        </action>
+        <!-- 根据ID查询用户action -->
+        <action name="findUserById" class="org.movie.action.UserAction" method="findUserById">
+            <result type="json">
+                <param name="root">user</param>
+            </result>
+        </action>
+        <!-- 添加用户action -->
+        <action name="addUser" class="org.movie.action.UserAction" method="addUser">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+        <!-- 修改用户action -->
+        <action name="updateUser" class="org.movie.action.UserAction" method="updateUser">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+        <!-- 删除用户action -->
+        <action name="deleteUser" class="org.movie.action.UserAction" method="deleteUser">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+
+    </package>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 影院pkg -->
+    <package name="cinemaPkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <action name="findCinema" class="org.movie.action.CinemaAction" method="findCinema">
+            <result type="json">
+                <param name="root">cinemaList</param>
+            </result>
+        </action>
+        <action name="findCinemaById" class="org.movie.action.CinemaAction" method="findCinemaById">
+            <result type="json">
+                <param name="root">cinema</param>
+            </result>
+        </action>
+        <action name="updateCinema" class="org.movie.action.CinemaAction" method="update">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+        <action name="addCinema" class="org.movie.action.CinemaAction" method="save">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+        <action name="deleteCinema" class="org.movie.action.CinemaAction" method="remove">
+            <result type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 影厅pkg -->
+    <package name="hallPkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <action name="hall*" class="org.movie.action.MovieHallAction" method="{1}">
+            <result name="findHall" type="json">
+                <param name="root">hallList</param>
+            </result>
+            <result name="findHallById" type="json">
+                <param name="root">hall</param>
+            </result>
+            <result name="updateHall" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addHall" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="removeHall" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 电影类型pkg -->
+    <package name="typePkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <action name="type*" class="org.movie.action.MovieTypeAction" method="{1}">
+            <result name="findType" type="json">
+                <param name="root">typeList</param>
+            </result>
+            <result name="findTypeById" type="json">
+                <param name="root">type</param>
+            </result>
+            <result name="updateType" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addType" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="removeType" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 电影年代pkg -->
+    <package name="datePkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <action name="date*" class="org.movie.action.MovieDateAction" method="{1}">
+            <result name="findDate" type="json">
+                <param name="root">dateList</param>
+            </result>
+            <result name="findDateById" type="json">
+                <param name="root">date</param>
+            </result>
+            <result name="updateDate" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addDate" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="removeDate" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 电影地区pkg -->
+    <package name="areaPkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <action name="area*" class="org.movie.action.MovieAreaAction" method="{1}">
+            <result name="findArea" type="json">
+                <param name="root">areaList</param>
+            </result>
+            <result name="findAreaById" type="json">
+                <param name="root">area</param>
+            </result>
+            <result name="updateArea" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addArea" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="removeArea" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 电影语言pkg -->
+    <package name="LanguagePkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <action name="language*" class="org.movie.action.MovieLanguageAction" method="{1}">
+            <result name="findLanguage" type="json">
+                <param name="root">languageList</param>
+            </result>
+            <result name="findLanguageById" type="json">
+                <param name="root">language</param>
+            </result>
+            <result name="updateLanguage" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addLanguage" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="removeLanguage" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 电影pkg -->
+    <package name="moviePkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <interceptors>
+            <interceptor-stack name="myStack">
+                <!-- 配置上传的拦截器 -->
+                <interceptor-ref name="fileUpload">
+                    <!-- 限制上传的文件类型，这里限制为只能上传各种图片类型 -->
+                    <param name="allowedTypes">image/bmp,image/png,image/jpg,image/jpeg</param>
+                    <!-- 限制上传文件的大小，单位是字节 -->
+                    <param name="maximumSize">2097152</param>
+                </interceptor-ref>
+
+                <!-- 引用默认的拦截器 -->
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
+
+        <action name="movie*" class="org.movie.action.MovieAction" method="{1}">
+            <interceptor-ref name="myStack" />
+
+            <result name="findMovie" type="json">
+                <param name="root">movieList</param>
+            </result>
+            <result name="findMovieById" type="json">
+                <param name="root">movie</param>
+            </result>
+            <result name="updateMovie" type="json">
+                <param name="root">message</param>
+            </result>
+
+            <result name="addMovie" type="json">
+                <param name="root">message</param>
+            </result>
+            <!-- 使用Json结果集类型返回错误信息，用于ajax请求 -->
+            <!-- struts会见fieldError序列化成json对象 -->
+            <result name="input" type="json">
+                <param name="root">fieldErrors</param>
+            </result>
+
+            <result name="removeMovie" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+
 </struts>

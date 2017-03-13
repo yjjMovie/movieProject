@@ -48,7 +48,7 @@ public class Movie {
         this.movieName = movieName;
     }
 
-    @Column(name = "movie_desc")
+    @Column(name = "movie_desc",length = 1000)
     public String getMovieDesc() {
         return movieDesc;
     }
@@ -93,7 +93,7 @@ public class Movie {
         this.movieActor = movieActor;
     }
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     public Set<MovieType> getMovieTypes() {
         return movieTypes;
     }
@@ -112,7 +112,7 @@ public class Movie {
         this.movieDate = movieDate;
     }
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     public Set<MovieLanguage> getMovieLanguages() {
         return movieLanguages;
     }
