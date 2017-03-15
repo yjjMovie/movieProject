@@ -66,7 +66,7 @@ public class Showing {
     //一对多关联
     //fetch属性设置加载策略（延迟LAZY或者立即EAGER加载）
     //mappedBy制定维护关系交由给对方
-    @OneToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.EAGER)
     public Set<Cinema> getCinemas() {
         return cinemas;
     }

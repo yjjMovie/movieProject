@@ -117,21 +117,21 @@ public class MovieAction {
         this.message = message;
     }
 
-    //查询所有电影地区
+    //查询所有电影
     public String findMovie() throws Exception {
         List<Movie> list = service.findMovie();
         movieList = list;
         return "findMovie";
     }
 
-    //根据ID查询电影地区
+    //根据ID查询电影
     public String findMovieById() throws Exception {
         Movie m = service.findMovieById(movie.getMovieId());
         movie = m;
         return "findMovieById";
     }
 
-    //更新电影地区信息
+    //更新电影信息
     public String updateMovie() throws Exception {
         uploadImg();
 
@@ -165,7 +165,7 @@ public class MovieAction {
         return "updateMovie";
     }
 
-    //添加电影地区
+    //添加电影
     public String addMovie() throws Exception {
 
         uploadImg();
@@ -199,7 +199,7 @@ public class MovieAction {
         return "addMovie";
     }
 
-    //删除电影地区
+    //删除电影
     public String removeMovie() throws Exception {
         boolean flag = service.removeMovie(movie);
 
@@ -216,11 +216,8 @@ public class MovieAction {
         //获取上传的绝对路径
         String uploadPath = ServletActionContext.getServletContext().getRealPath("/images");
         String path = uploadPath.replace("target\\movie_manager-1.0-SNAPSHOT\\images", "web\\images");
-        System.out.println(path);
         //判断提交过来的File不为null，才执行上传操作
         if(uploadFile != null) {
-            System.out.println(uploadFileFileName);
-            System.out.println(uploadFileContentType);
             //根据文件名以及上传的路径构建一个新的File对象
             File saveFile = new File(path, uploadFileFileName);
             //先判断上的目录是否存在，如果不存在则创建出来
@@ -232,7 +229,6 @@ public class MovieAction {
             FileUtils.copyFile(uploadFile, saveFile);
             //String photo = path + "\\" + uploadFileFileName;
             String photo =  uploadFileFileName;
-            System.out.println(photo);
             movie.setMoviePhoto(photo);
         }
     }

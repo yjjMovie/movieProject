@@ -63,7 +63,6 @@ function buttonClick(){
             $("#movieHallNum").val(result.seatingNum);
 
             var cinemaName = result.cinema.cinemaName;
-            alert(cinemaName);
 
             $.get("findCinema", function(result){
                 $("#cinema2").empty();

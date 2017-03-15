@@ -14,7 +14,7 @@ public class HibernateUtil {
 	static {
 		//通过Persistence类的静态方法创建一个EntityManagerFactory
 		//createEntityManagerFactory方法的参数指定持久化单元的名称
-		emFactory = Persistence.createEntityManagerFactory("myoracle");
+		emFactory = Persistence.createEntityManagerFactory("mysql");
 	}
 
 	//提供一个方法用于获取EntityManager对象，EntityManager对象取代Hibernate中的Session

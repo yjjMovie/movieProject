@@ -6,7 +6,7 @@
 
 <struts>
 
-
+    <constant name="struts.json.dateformat" value="yyyy-MM-dd HH:mm:ss" />
     <!--设置编码格式，防止上传的文件名为中文的是乱码 -->
     <constant name="struts.i18n.encoding" value="UTF-8" />
     <!-- 指定resource资源文件的名称 -->
@@ -272,6 +272,52 @@
             </result>
 
             <result name="removeMovie" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 评论pkg -->
+    <package name="commentPkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <action name="comment_*" class="org.movie.action.CommentAction" method="{1}">
+            <result name="findComment" type="json">
+                <param name="root">commentList</param>
+            </result>
+            <result name="findCommentById" type="json">
+                <param name="root">comment</param>
+            </result>
+            <result name="updateComment" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addComment" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="deleteComment" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- 上映pkg -->
+    <package name="showingPkg" extends="json-default,struts-default" strict-method-invocation="false">
+        <action name="showing_*" class="org.movie.action.ShowingAction" method="{1}">
+            <result name="findShowing" type="json">
+                <param name="root">showingList</param>
+            </result>
+            <result name="findShowingById" type="json">
+                <param name="root">showing</param>
+            </result>
+            <result name="updateShowing" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addShowing" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="deleteShowing" type="json">
                 <param name="root">message</param>
             </result>
         </action>

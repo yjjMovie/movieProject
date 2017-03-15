@@ -28,8 +28,7 @@ function addTable(result){
             "<p class='all'><span>◎地区："+obj.movieArea.movieAreaName+"</span><span>◎语言："+languages+"</span><span>◎年代："+obj.movieDate.movieDateName+"</span><span>◎时长："+obj.movieTime+"分钟</span></p>"+
             "<p class='hpo_desc'>◎描述："+obj.movieDesc+"</p>"+
             "<input type='button' alt='"+obj.movieId+"' class='btn-info' value='操作'/>"+
-            "</div>"
-        );
+            "</div>");
 
     });
 };
@@ -37,15 +36,17 @@ function addTable(result){
 //给添加按钮绑定click事件
 function add(){
     $("#addMovie").on("click", function(){
+        $("#f1 :input").val("");
+        //显示模式对话框
+        $("#addMovieView").modal("show");
 
         //查询全部电影类型
         $.get("typefindType", function(result){
             $("#movieTypeName").empty();
             $.each(result, function(index, obj){
-                $("#movieTypeName").append("    <label><input type='checkbox' value='"+
-                    obj.movieTypeId+"' name='type' />"+obj.movieTypeName+"</label>")
+                $("#movieTypeName").append("    <input type='checkbox' value='"+
+                    obj.movieTypeId+"' name='type' />"+obj.movieTypeName)
             });
-
         });
 
         //查询全部电影地区
@@ -73,8 +74,6 @@ function add(){
             });
         });
 
-        //显示模式对话框
-        $("#addMovieView").modal("show");
     });
     save();
 }
@@ -95,12 +94,6 @@ function save(){
                 location.href = "movieInfo.html";
             }
         });
-
-        //var params = $("#f1").serialize();
-        /*$.post("movieaddMovie", formData, function(result){
-            alert(result);
-            location.href = "movieInfo.html";
-        });*/
     });
 }
 
@@ -153,12 +146,12 @@ function buttonClick(){
                     var i = 0;
                     $.each(types, function(index, obj){
                         if(obj.movieTypeName == typeName){
-                            $("#movieType").append("  <label><input type='checkbox' checked='checked' name='type' value="+obj.movieTypeId+">"+obj.movieTypeName+"</label>");
+                            $("#movieType").append("  <input type='checkbox' checked='checked' name='type' value="+obj.movieTypeId+">"+obj.movieTypeName);
                             i = 1;
                         }
                     });
                     if(i != 1){
-                        $("#movieType").append("  <label><input type='checkbox' name='type' value="+obj.movieTypeId+">"+obj.movieTypeName+"</label>");
+                        $("#movieType").append("  <input type='checkbox' name='type' value="+obj.movieTypeId+">"+obj.movieTypeName);
                     }
                 });
             });
