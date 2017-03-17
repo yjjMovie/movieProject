@@ -12,7 +12,7 @@ function addTable(result){
     $.each(result, function(index, obj){
 
         $("table").append("<tr>" +
-            "<td>"+obj.movieLanguageId+"</td>"+
+            "<td>"+(++index)+"</td>"+
             "<td>"+obj.movieLanguageName+"</td>"+
             "<td><input  alt='"+obj.movieLanguageId+"' type='button' class='btn btn-danger btn-sm' value='编辑'></td>");
     });

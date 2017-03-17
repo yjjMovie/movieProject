@@ -12,7 +12,7 @@ function addTable(result){
     $.each(result, function(index, obj){
 
         $("table").append("<tr>" +
-            "<td>"+obj.commentId+"</td>"+
+            "<td>"+(++index)+"</td>"+
             "<td>"+obj.commentDesc+"</td>"+
             "<td>"+obj.commentTime+"</td>"+
             "<td>"+obj.user.userName+"</td>"+
@@ -30,7 +30,7 @@ function add(){
                 $("#user").append("<option value='"+obj.userId+"'>"+obj.userName+"</option>");
             });
         })
-        $.get("moviefindMovie", function(result){
+        $.get("moviefindMovieList", function(result){
             $.each(result, function(index, obj){
                 $("#movie").append("<option value='"+obj.movieId+"'>"+obj.movieName+"</option>");
             });
@@ -79,7 +79,7 @@ function buttonClick(){
                 });
             })
 
-            $.get("moviefindMovie", function(result){
+            $.get("moviefindMovieList", function(result){
                 $("#movieName").empty();
                 $.each(result, function(index, obj){
                     if(obj.movieName == movieName){

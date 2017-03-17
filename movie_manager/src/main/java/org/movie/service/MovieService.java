@@ -30,6 +30,11 @@ public class MovieService {
         return pageBean;
     }
 
+    public List<Movie> findMovie(){
+
+        return dao.findList(Movie.class);
+    }
+
     public Movie findMovieById(String movieId) {
         return dao.findById(Movie.class, movieId);
     }

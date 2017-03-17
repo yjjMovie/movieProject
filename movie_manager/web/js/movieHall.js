@@ -12,7 +12,7 @@ function addTable(result){
     $.each(result, function(index, obj){
 
         $("table").append("<tr>" +
-            "<td>"+obj.movieHallId+"</td>"+
+            "<td>"+(++index)+"</td>"+
             "<td>"+obj.movieHallName+"</td>"+
             "<td>"+obj.seatColumn+"</td>"+
             "<td>"+obj.seatRow+"</td>"+

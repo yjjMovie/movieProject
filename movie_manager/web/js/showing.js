@@ -12,7 +12,7 @@ function addTable(result){
     $.each(result, function(index, obj){
 
         $("table").append("<tr>" +
-            "<td>"+obj.showingId+"</td>"+
+            "<td>"+(++index)+"</td>"+
             "<td>"+obj.showingTime+"</td>"+
             "<td>"+obj.outawayTime+"</td>"+
             "<td>"+obj.movie.movieName+"</td>"+
@@ -31,7 +31,7 @@ function add(){
                 $("#cinema").append("<option value='"+obj.cinemaId+"'>"+obj.cinemaName+"</option>");
             });
         })
-        $.get("moviefindMovie", function(result){
+        $.get("moviefindMovieList", function(result){
             $("#movie").empty();
             $.each(result, function(index, obj){
                 $("#movie").append("<option value='"+obj.movieId+"'>"+obj.movieName+"</option>");
@@ -68,9 +68,10 @@ function buttonClick(){
             $("#outawayTime").val(result.outawayTime);
             var cinemaNames = result.cinemas[0].cinemaName;
             var movieName = result.movie.movieName;
+            alert(movieName);
 
 
-            $.get("moviefindMovie", function(result){
+            $.get("moviefindMovieList", function(result){
                 $("#movieName").empty();
                 $.each(result, function(index, obj){
                     if(obj.movieName == movieName){

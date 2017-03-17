@@ -148,6 +148,12 @@ public class MovieAction {
         return "findMovie";
     }
 
+    public String findMovieList() throws Exception {
+        System.out.println("dsfdsf");
+        movieList = service.findMovie();
+        return "findMovieList";
+    }
+
     //根据ID查询电影
     public String findMovieById() throws Exception {
         Movie m = service.findMovieById(movie.getMovieId());

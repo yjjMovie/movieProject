@@ -255,6 +255,9 @@
             <result name="findMovie" type="json">
                 <param name="root">pageBean</param>
             </result>
+            <result name="findMovieList" type="json">
+                <param name="root">movieList</param>
+            </result>
             <result name="findMovieById" type="json">
                 <param name="root">movie</param>
             </result>

@@ -13,5 +13,7 @@ public interface MovieDao extends BaseDao<Movie> {
 
     public List<Movie> findList(PageBean pageBean);
 
+    public List<Movie> findList();
+
     public Long count();
 }

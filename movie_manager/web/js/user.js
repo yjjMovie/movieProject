@@ -18,7 +18,7 @@ function addTable(result){
         }
 
         $("table").append("<tr>" +
-            "<td>"+obj.userId+"</td>"+
+            "<td>"+(++index)+"</td>"+
             "<td>"+obj.userName+"</td>"+
             "<td>"+obj.userPassword+"</td>"+
             "<td>"+sex+"</td>"+

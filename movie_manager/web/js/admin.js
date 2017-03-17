@@ -16,7 +16,7 @@ function addTable(result){
             ver = "禁用";
         }
         $("table").append("<tr>" +
-            "<td>"+obj.adminId+"</td>"+
+            "<td>"+(++index)+"</td>"+
             "<td>"+obj.adminName+"</td>"+
             "<td>"+obj.adminPassword+"</td>"+
             "<td>"+ver+"</td>"+
