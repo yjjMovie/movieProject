@@ -1,16 +1,23 @@
 package org.movie.service;
 
-import org.movie.dao.BaseDao;
+import org.movie.dao.MovieAreaDao;
 import org.movie.entity.MovieArea;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/02/13.
+ * Created by MovieAreaistrator on 2017/02/13.
  */
+@Service
+@Transactional
 public class MovieAreaService {
 
-    BaseDao<MovieArea> dao = new BaseDao<>();
+    @Autowired
+    private MovieAreaDao dao;
+    String message = "";
 
     public List<MovieArea> findMovieArea() {
         return dao.findList(MovieArea.class);
@@ -20,16 +27,39 @@ public class MovieAreaService {
         return dao.findById(MovieArea.class, movieAreaId);
     }
 
-    public boolean update(MovieArea area) {
-        return dao.update(area);
+    public String update(MovieArea movieArea) {
+        try{
+            dao.update(movieArea);
+            message = "更新成功";
+        }catch (RuntimeException e){
+            message = "更新失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
-    public boolean save(MovieArea area) {
-        return dao.save(area);
+    public String save(MovieArea movieArea) {
+
+        try{
+            dao.save(movieArea);
+            message = "添加成功";
+        }catch (RuntimeException e){
+            message = "添加失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
-    public boolean remove(MovieArea area) {
-        return dao.remove(area);
+    public String remove(MovieArea movieArea) {
+
+        try{
+            dao.remove(movieArea);
+            message = "删除成功";
+        }catch (RuntimeException e){
+            message = "删除失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
 }

@@ -2,16 +2,22 @@ package org.movie.action;
 
 import org.movie.entity.Cinema;
 import org.movie.service.CinemaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/02/06.
  */
+@Controller("cinemaAction")
+@Scope("prototype")
 public class CinemaAction {
 
     //影院业务层
-    CinemaService service = new CinemaService();
+    @Autowired
+    private CinemaService service;
     //影院集合
     private List<Cinema> cinemaList;
     //影院实体类
@@ -57,35 +63,19 @@ public class CinemaAction {
     }
 
     public String update() throws Exception {
-        boolean flag = service.update(cinema);
-
-        if(flag){
-            message = "更新成功";
-        }else{
-            message = "更新失败，请重新操作！";
-        }
+        message = service.update(cinema);
         return "success";
     }
 
     public String save() throws Exception {
-        boolean flag = service.save(cinema);
+        message = service.save(cinema);
 
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
         return "success";
     }
 
     public String remove() throws Exception {
-        boolean flag = service.remove(cinema);
+        message = service.remove(cinema);
 
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
         return "success";
     }
 }

@@ -5,6 +5,10 @@ import org.apache.struts2.ServletActionContext;
 import org.movie.entity.*;
 import org.movie.entity.Movie;
 import org.movie.service.MovieService;
+import org.movie.utils.PageBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +17,13 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/02/14.
  */
+@Controller("movieAction")
+@Scope("prototype")
 public class MovieAction {
 
     //电影信息业务层
-    MovieService service = new MovieService();
+    @Autowired
+    private MovieService service;
     //电影实体集合
     private List<Movie> movieList;
     //电影实体类
@@ -36,6 +43,16 @@ public class MovieAction {
     //上传的文件类型，格式必须是File名称加上ContentType
     private String uploadFileContentType;
     private String message;
+    private int pageNum;
+    private PageBean pageBean;
+
+    public PageBean getPageBean() {
+        return pageBean;
+    }
+
+    public void setPageBean(PageBean pageBean) {
+        this.pageBean = pageBean;
+    }
 
     public List<Movie> getMovieList() {
         return movieList;
@@ -117,10 +134,17 @@ public class MovieAction {
         this.message = message;
     }
 
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
     //查询所有电影
     public String findMovie() throws Exception {
-        List<Movie> list = service.findMovie();
-        movieList = list;
+        pageBean = service.findMovie(pageNum);
         return "findMovie";
     }
 
@@ -154,13 +178,7 @@ public class MovieAction {
             movieLanguage.setMovieLanguageId(language[i]);
             movie.getMovieLanguages().add(movieLanguage);
         }
-        boolean flag = service.updateMovie(movie);
-
-        if(flag){
-            message = "更新成功";
-        }else{
-            message = "更新失败，请重新操作！";
-        }
+        message = service.updateMovie(movie);
 
         return "updateMovie";
     }
@@ -189,25 +207,15 @@ public class MovieAction {
             movieLanguage.setMovieLanguageId(language[i]);
             movie.getMovieLanguages().add(movieLanguage);
         }
-        boolean flag = service.saveMovie(movie);
-
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
+        message = service.saveMovie(movie);
         return "addMovie";
     }
 
     //删除电影
     public String removeMovie() throws Exception {
-        boolean flag = service.removeMovie(movie);
+        System.out.println(movie.getMovieId());
+        message = service.removeMovie(movie);
 
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
         return "removeMovie";
     }
 

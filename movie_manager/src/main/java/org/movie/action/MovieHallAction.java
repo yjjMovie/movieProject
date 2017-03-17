@@ -3,16 +3,22 @@ package org.movie.action;
 import org.movie.entity.Cinema;
 import org.movie.entity.MovieHall;
 import org.movie.service.MovieHallService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/02/07.
  */
+@Controller("movieHallAction")
+@Scope("prototype")
 public class MovieHallAction {
 
     //影厅业务层
-    MovieHallService service = new MovieHallService();
+    @Autowired
+    private MovieHallService service;
     //影厅集合
     private List<MovieHall> hallList;
     //影厅实体类
@@ -73,13 +79,7 @@ public class MovieHallAction {
         Cinema c = new Cinema();
         c.setCinemaId(cinema.getCinemaId());
         hall.setCinema(c);
-        boolean flag = service.update(hall);
-
-        if(flag){
-            message = "更新成功";
-        }else{
-            message = "更新失败，请重新操作！";
-        }
+        message = service.update(hall);
 
         return "updateHall";
     }
@@ -89,25 +89,15 @@ public class MovieHallAction {
         Cinema c = new Cinema();
         c.setCinemaId(cinema.getCinemaId());
         hall.setCinema(c);
-        boolean flag = service.save(hall);
+        message = service.save(hall);
 
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
         return "addHall";
     }
 
     //删除影厅
     public String removeHall() throws Exception {
-        boolean flag = service.remove(hall);
+        message = service.remove(hall);
 
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
         return "removeHall";
     }
 

@@ -5,6 +5,9 @@ import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.ServletActionContext;
 import org.movie.entity.Admin;
 import org.movie.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +17,13 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/01/12.
  */
+@Controller("adminAction")
+@Scope("prototype")
 public class AdminAction {
 
     //管理员业务层
-    AdminService service = new AdminService();
+    @Autowired
+    AdminService service;
     //管理员集合
     private List<Admin> adminList;
     //管理员实体类
@@ -68,32 +74,17 @@ public class AdminAction {
     //添加管理员
     public String addAdmin() throws Exception {
 
-        boolean flag = service.save(admin);
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
+        message = service.save(admin);
         return "success";
     }
 
     public String updateAdmin() throws Exception {
-        boolean flag = service.update(admin);
-        if(flag){
-            message = "修改成功";
-        }else{
-            message = "修改失败，请重新操作！";
-        }
+        message = service.update(admin);
         return "success";
     }
 
     public String deleteAdmin() throws Exception {
-        boolean flag = service.remove(admin);
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
+        message = service.remove(admin);
         return "success";
     }
 }

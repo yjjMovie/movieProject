@@ -1,15 +1,23 @@
 package org.movie.service;
 
-import org.movie.dao.BaseDao;
+import org.movie.dao.AdminDao;
 import org.movie.entity.Admin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/01/12.
  */
+@Service
+@Transactional
 public class AdminService {
-    BaseDao<Admin> dao = new BaseDao<>();
+    
+    @Autowired
+    private AdminDao dao;
+    String message  = "";
 
     public List<Admin> findAdmin(){
         List<Admin> list = dao.findList(Admin.class);
@@ -21,15 +29,38 @@ public class AdminService {
         return admin;
     }
 
-    public boolean save(Admin admin) {
-        return dao.save(admin);
+    public String update(Admin admin) {
+        try{
+            dao.update(admin);
+            message = "更新成功";
+        }catch (RuntimeException e){
+            message = "更新失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
-    public boolean update(Admin admin) {
-        return dao.update(admin);
+    public String save(Admin admin) {
+
+        try{
+            dao.save(admin);
+            message = "添加成功";
+        }catch (RuntimeException e){
+            message = "添加失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
-    public boolean remove(Admin admin) {
-        return dao.remove(admin);
+    public String remove(Admin admin) {
+
+        try{
+            dao.remove(admin);
+            message = "删除成功";
+        }catch (RuntimeException e){
+            message = "删除失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 }

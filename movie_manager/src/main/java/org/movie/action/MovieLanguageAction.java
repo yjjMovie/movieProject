@@ -2,16 +2,22 @@ package org.movie.action;
 
 import org.movie.entity.MovieLanguage;
 import org.movie.service.MovieLanguageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/02/14.
  */
+@Controller("movieLanguageAction")
+@Scope("prototype")
 public class MovieLanguageAction {
 
     //电影语言业务层
-    MovieLanguageService service = new MovieLanguageService();
+    @Autowired
+    private MovieLanguageService service;
     //电影语言集合
     private List<MovieLanguage> languageList;
     //电影语言实体类
@@ -59,38 +65,22 @@ public class MovieLanguageAction {
 
     //更新电影语言信息
     public String updateLanguage() throws Exception {
-        boolean flag = service.update(language);
-
-        if(flag){
-            message = "更新成功";
-        }else{
-            message = "更新失败，请重新操作！";
-        }
+        message = service.update(language);
 
         return "updateLanguage";
     }
 
     //添加电影语言
     public String addLanguage() throws Exception {
-        boolean flag = service.save(language);
+        message = service.save(language);
 
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
         return "addLanguage";
     }
 
     //删除电影语言
     public String removeLanguage() throws Exception {
-        boolean flag = service.remove(language);
+        message = service.remove(language);
 
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
         return "removeLanguage";
     }
 

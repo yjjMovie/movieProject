@@ -1,41 +1,71 @@
 package org.movie.service;
 
-import org.movie.dao.BaseDao;
+import org.movie.dao.MovieDao;
 import org.movie.entity.Movie;
-import org.movie.entity.MovieLanguage;
-import org.movie.entity.MovieType;
+import org.movie.utils.PageBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/02/14.
  */
+@Service("movieService")
+@Transactional
 public class MovieService {
 
-    BaseDao<Movie> dao = new BaseDao<>();
+    @Autowired
+    private MovieDao dao;
+    String message = "";
 
-    public List<Movie> findMovie() {
-        List<Movie> list = dao.findList(Movie.class);
-        for (Movie movie : list) {
-            System.out.println(movie);
-        }
-        return list;
+    public PageBean findMovie(int pageNum) {
+        System.out.println(pageNum);
+        PageBean pageBean = new PageBean();
+        pageBean.setPageNum(pageNum);
+        int row = Integer.parseInt(String.valueOf(dao.count()));
+        pageBean.setRowCount(row);
+        pageBean.setList(dao.findList(pageBean));
+        return pageBean;
     }
 
     public Movie findMovieById(String movieId) {
-        Movie movie = dao.findById(Movie.class, movieId);
-        return movie;
+        return dao.findById(Movie.class, movieId);
     }
 
-    public boolean updateMovie(Movie movie) {
-        return dao.update(movie);
+    public String updateMovie(Movie movie) {
+        try{
+            dao.update(movie);
+            message = "更新成功";
+        }catch (RuntimeException e){
+            message = "更新失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
-    public boolean saveMovie(Movie movie) {
-        return dao.save(movie);
+    public String saveMovie(Movie movie) {
+
+        try{
+            dao.save(movie);
+            message = "添加成功";
+        }catch (RuntimeException e){
+            message = "添加失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
-    public boolean removeMovie(Movie movie) {
-        return dao.remove(movie);
+    public String removeMovie(Movie movie) {
+
+        try{
+            dao.remove(movie);
+            message = "删除成功";
+        }catch (RuntimeException e){
+            message = "删除失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 }

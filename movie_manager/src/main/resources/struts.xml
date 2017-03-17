@@ -17,31 +17,31 @@
     <!-- 管理员pkg -->
     <package name="adminPkg" extends="struts-default,json-default" strict-method-invocation="false">
         <!-- 查询全部管理员action -->
-        <action name="findAdmin" class="org.movie.action.AdminAction" method="findAdmin">
+        <action name="findAdmin" class="adminAction" method="findAdmin">
             <result type="json">
                 <param name="root">adminList</param>
             </result>
         </action>
         <!-- 根据ID查询管理员action -->
-        <action name="findAdminById" class="org.movie.action.AdminAction" method="findAdminById">
+        <action name="findAdminById" class="adminAction" method="findAdminById">
             <result type="json">
                 <param name="root">admin</param>
             </result>
         </action>
         <!-- 添加管理员action -->
-        <action name="addAdmin" class="org.movie.action.AdminAction" method="addAdmin">
+        <action name="addAdmin" class="adminAction" method="addAdmin">
             <result type="json">
                 <param name="root">message</param>
             </result>
         </action>
         <!-- 修改管理员action -->
-        <action name="updateAdmin" class="org.movie.action.AdminAction" method="updateAdmin">
+        <action name="updateAdmin" class="adminAction" method="updateAdmin">
             <result type="json">
                 <param name="root">message</param>
             </result>
         </action>
         <!-- 删除管理员action -->
-        <action name="deleteAdmin" class="org.movie.action.AdminAction" method="deleteAdmin">
+        <action name="deleteAdmin" class="adminAction" method="deleteAdmin">
             <result type="json">
                 <param name="root">message</param>
             </result>
@@ -238,7 +238,7 @@
                 <!-- 配置上传的拦截器 -->
                 <interceptor-ref name="fileUpload">
                     <!-- 限制上传的文件类型，这里限制为只能上传各种图片类型 -->
-                    <param name="allowedTypes">image/bmp,image/png,image/jpg,image/jpeg</param>
+                    <param name="allowedTypes">image/bmp,image/png,image/jpg,image/jpeg,image/JPEG</param>
                     <!-- 限制上传文件的大小，单位是字节 -->
                     <param name="maximumSize">2097152</param>
                 </interceptor-ref>
@@ -253,7 +253,7 @@
             <interceptor-ref name="myStack" />
 
             <result name="findMovie" type="json">
-                <param name="root">movieList</param>
+                <param name="root">pageBean</param>
             </result>
             <result name="findMovieById" type="json">
                 <param name="root">movie</param>

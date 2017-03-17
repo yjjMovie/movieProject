@@ -5,18 +5,29 @@
          version="3.1">
 
 
+    <!-- 配置监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:applicationContext.xml</param-value>
+    </context-param>
+
+    <!-- 编码过滤器 -->
     <filter>
-        <filter-name>encoding</filter-name>
-        <filter-class>org.movie.filter.EncodingFilter</filter-class>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
-            <param-name>encoder</param-name>
-            <param-value>UTF-8</param-value>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8 </param-value>
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>encoding</filter-name>
+        <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
 
     <filter>
         <filter-name>dispatcher</filter-name>

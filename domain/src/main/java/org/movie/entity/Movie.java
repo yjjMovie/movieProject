@@ -10,8 +10,8 @@ import java.util.Set;
  * 电影信息实体类
  * Created by Administrator on 2017/01/11.
  */
-@Table
-@Entity(name = "movie_info")
+@Entity
+@Table(name = "movie_info")
 public class Movie {
     private String movieId;
     private String movieName;

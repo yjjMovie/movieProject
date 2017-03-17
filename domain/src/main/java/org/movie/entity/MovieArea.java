@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 /**
- * 电影国家实体类
+ * 电影地区实体类
  * Created by Administrator on 2017/01/11.
  */
 @Entity

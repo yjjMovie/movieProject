@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="org.movie" />
+
+    <!-- 配置数据源，使用DBCP连接池 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <!-- 数据源以及连接池的属性 -->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/movie?useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+
+        <property name="initialSize" value="5" />
+        <property name="maxIdle" value="50" />
+        <property name="maxActive" value="100" />
+        <property name="minIdle" value="10" />
+        <property name="maxWait" value="2000" />
+    </bean>
+    <!-- 配置JPA实现方法的适配器，因为JPA实现方法有很多，
+        Hibernate也是JPA标准的一种实现，因此这里指定为
+        Hibernate的JPA实现适配器-->
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <!-- 配置JPA的属性 -->
+        <!-- 数据库的类型 -->
+        <property name="database" value="MYSQL" />
+        <!-- 指定数据库的方言 -->
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
+        <!-- 在控制台显示SQL语句 -->
+        <property name="showSql" value="true" />
+        <!-- 是否自动执行DDL语句，（自动建表） -->
+        <property name="generateDdl" value="true" />
+    </bean>
+
+    <!-- 配置实体管理器工厂，Spring会依据这个工厂创建并注入一个实体管理器EntityManager
+        创建出来的EntityManager是由Spring容器管理的，并且会参与到Spring的事务当中，它是线程安全的-->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <!-- 需要注入一个数据源和JPA的适配器 -->
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+        <!-- 指定实体的扫描路径 -->
+        <property name="packagesToScan" value="org.movie.entity" />
+    </bean>
+
+    <!-- 配置JPA事务管理器 -->
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <!-- 需要注入一个实体管理器工厂 -->
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!-- 启动注解事务管理，transaction-manager引用上面的事务管理器 -->
+    <tx:annotation-driven transaction-manager="txManager" />
+</beans>

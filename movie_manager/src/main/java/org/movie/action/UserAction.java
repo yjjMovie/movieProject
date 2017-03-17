@@ -2,6 +2,9 @@ package org.movie.action;
 
 import org.movie.entity.User;
 import org.movie.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,10 +12,13 @@ import java.util.List;
 /**
  * Created by Useristrator on 2017/01/12.
  */
+@Controller("userAction")
+@Scope("prototype")
 public class UserAction {
 
     //用户业务层
-    UserService service = new UserService();
+    @Autowired
+    private UserService service;
     //用户集合
     private List<User> userList;
     //用户实体类
@@ -64,32 +70,17 @@ public class UserAction {
     //添加用户
     public String addUser() throws Exception {
         System.out.println(user.getUserSex());
-        boolean flag = service.save(user);
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
+        message = service.save(user);
         return "success";
     }
 
     public String updateUser() throws Exception {
-        boolean flag = service.update(user);
-        if(flag){
-            message = "修改成功";
-        }else{
-            message = "修改失败，请重新操作！";
-        }
+        message = service.update(user);
         return "success";
     }
 
     public String deleteUser() throws Exception {
-        boolean flag = service.remove(user);
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
+        message = service.remove(user);
         return "success";
     }
 }

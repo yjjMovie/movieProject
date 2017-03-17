@@ -2,16 +2,22 @@ package org.movie.action;
 
 import org.movie.entity.MovieArea;
 import org.movie.service.MovieAreaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/02/13.
  */
+@Controller("movieAreaAction")
+@Scope("prototype")
 public class MovieAreaAction {
 
     //电影地区业务层
-    MovieAreaService service = new MovieAreaService();
+    @Autowired
+    private MovieAreaService service;
     //电影地区集合
     private List<MovieArea> areaList;
     //电影地区实体类
@@ -59,38 +65,21 @@ public class MovieAreaAction {
 
     //更新电影地区信息
     public String updateArea() throws Exception {
-        boolean flag = service.update(area);
-
-        if(flag){
-            message = "更新成功";
-        }else{
-            message = "更新失败，请重新操作！";
-        }
-
+        message = service.update(area);
         return "updateArea";
     }
 
     //添加电影地区
     public String addArea() throws Exception {
-        boolean flag = service.save(area);
+        message = service.save(area);
 
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
         return "addArea";
     }
 
     //删除电影地区
     public String removeArea() throws Exception {
-        boolean flag = service.remove(area);
+        message = service.remove(area);
 
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
         return "removeArea";
     }
 

@@ -2,16 +2,23 @@ package org.movie.action;
 
 import org.movie.entity.MovieType;
 import org.movie.service.MovieTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/02/07.
  */
+
+@Controller("movieTypeAction")
+@Scope("prototype")
 public class MovieTypeAction {
 
     //电影类型业务层
-    MovieTypeService service = new MovieTypeService();
+    @Autowired
+    private MovieTypeService service;
     //电影类型集合
     private List<MovieType> typeList;
     //电影类型实体类
@@ -59,38 +66,22 @@ public class MovieTypeAction {
 
     //更新电影类型信息
     public String updateType() throws Exception {
-        boolean flag = service.update(type);
-
-        if(flag){
-            message = "更新成功";
-        }else{
-            message = "更新失败，请重新操作！";
-        }
+        message = service.update(type);
 
         return "updateType";
     }
 
     //添加电影类型
     public String addType() throws Exception {
-        boolean flag = service.save(type);
+        message = service.save(type);
 
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
         return "addType";
     }
 
     //删除电影类型
     public String removeType() throws Exception {
-        boolean flag = service.remove(type);
+        message = service.remove(type);
 
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
         return "removeType";
     }
 

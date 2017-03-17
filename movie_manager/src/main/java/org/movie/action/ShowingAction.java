@@ -3,18 +3,22 @@ package org.movie.action;
 import org.movie.entity.Cinema;
 import org.movie.entity.Movie;
 import org.movie.entity.Showing;
-import org.movie.entity.User;
 import org.movie.service.ShowingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/03/13.
  */
+@Controller("showingAction")
+@Scope("prototype")
 public class ShowingAction {
 
-    ShowingService service = new ShowingService();
+    @Autowired
+    private ShowingService service;
     private Showing showing;
     private Movie movie;
     private Cinema cinema;
@@ -80,13 +84,8 @@ public class ShowingAction {
         c.setMovieHalls(null);
         showing.setMovie(m);
         showing.getCinemas().add(c);
-        boolean flag = service.update(showing);
+        message = service.update(showing);
 
-        if(flag){
-            message = "更新成功";
-        }else{
-            message = "更新失败，请重新操作！";
-        }
         return "updateShowing";
     }
 
@@ -100,24 +99,13 @@ public class ShowingAction {
         showing.setMovie(m);
         showing.getCinemas().add(c);
 
-        boolean flag = service.save(showing);
-
-        if(flag){
-            message = "添加成功";
-        }else{
-            message = "添加失败，请重新操作！";
-        }
+        message = service.save(showing);
         return "addShowing";
     }
 
     public String deleteShowing() throws Exception {
-        boolean flag = service.remove(showing);
+        message = service.remove(showing);
 
-        if(flag){
-            message = "删除成功";
-        }else{
-            message = "删除失败，请重新操作！";
-        }
         return "deleteShowing";
     }
 }

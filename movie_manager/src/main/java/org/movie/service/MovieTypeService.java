@@ -1,41 +1,68 @@
 package org.movie.service;
 
-import org.movie.dao.BaseDao;
+import org.movie.dao.MovieTypeDao;
 import org.movie.entity.MovieType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/02/09.
  */
+@Service
+@Transactional
 public class MovieTypeService {
 
-    BaseDao<MovieType> dao = new BaseDao<>();
+    @Autowired
+    private MovieTypeDao dao;
+    String message = "";
 
     public List<MovieType> findMovieType() {
         List<MovieType> list = dao.findList(MovieType.class);
-        /*for (MovieType type : list) {
-            type.setMovie(null);
-        }*/
         return list;
     }
 
     public MovieType findMovieTypeById(String movieTypeId) {
         MovieType type = dao.findById(MovieType.class, movieTypeId);
-        //type.setMovie(null);
         return type;
 
     }
 
-    public boolean update(MovieType type) {
-        return dao.update(type);
+    public String update(MovieType movieType) {
+        try{
+            dao.update(movieType);
+            message = "更新成功";
+        }catch (RuntimeException e){
+            message = "更新失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
-    public boolean save(MovieType type) {
-        return dao.save(type);
+    public String save(MovieType movieType) {
+
+        try{
+            dao.save(movieType);
+            message = "添加成功";
+        }catch (RuntimeException e){
+            message = "添加失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
 
-    public boolean remove(MovieType type) {
-        return dao.remove(type);
+    public String remove(MovieType movieType) {
+
+        try{
+            dao.remove(movieType);
+            message = "删除成功";
+        }catch (RuntimeException e){
+            message = "删除失败，请重新操作！";
+            throw e;
+        }
+        return message;
     }
+
 }

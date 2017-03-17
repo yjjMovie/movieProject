@@ -15,6 +15,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- 设置控制台输出参数的编码格式， 解决乱码  -->
         <orgLine>-Dfile.encoding=UTF-8</orgLine>
+
+        <struts2.version>2.5.8</struts2.version>
+        <spring.version>4.3.6.RELEASE</spring.version>
+        <hibernate.version>5.2.8.Final</hibernate.version>
     </properties>
 
     <build>
@@ -57,13 +61,6 @@
             <version>4.12</version>
         </dependency>
 
-        <!-- oracle驱动 -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0</version>
-        </dependency>
-
 
         <dependency>
             <groupId>jstl</groupId>
@@ -85,42 +82,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--hibernate5-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.5.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.2.5.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>5.2.5.Final</version>
-        </dependency>
-        <!-- mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.5</version>
-        </dependency>
-
-
-        <!-- 添加struts依赖 -->
-        <dependency>
-            <groupId>org.apache.struts</groupId>
-            <artifactId>struts2-core</artifactId>
-            <version>2.5.8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.struts</groupId>
-            <artifactId>struts2-json-plugin</artifactId>
-            <version>2.5.8</version>
-        </dependency>
 
             <dependency>
                 <groupId>log4j</groupId>
@@ -140,8 +101,84 @@
                 <artifactId>struts2-json-plugin</artifactId>
                 <version>2.5.8</version>
             </dependency>
+            <!-- 添加struts依赖 -->
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-core</artifactId>
+                <version>${struts2.version}</version>
+            </dependency>
+            <!-- struts2整合spring的插件 -->
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-spring-plugin</artifactId>
+                <version>${struts2.version}</version>
+            </dependency>
+            <!-- JSON插件 -->
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-json-plugin</artifactId>
+                <version>${struts2.version}</version>
+            </dependency>
 
-    </dependencies>
+
+            <!-- 引用spring web模块 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- 引用Spring tx事务模块 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- 引入spring orm 用于整合Hibernate -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!-- 引用DBCP连接池 -->
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>1.4</version>
+            </dependency>
+
+            <!-- mysql驱动 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.5</version>
+            </dependency>
+
+            <!--hibernate5-->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-c3p0</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+
+        </dependencies>
 
     </dependencyManagement>
 

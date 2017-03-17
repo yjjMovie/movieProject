@@ -1,13 +1,27 @@
 $(function(){
-    $.get("moviefindMovie", function(result){
-        addTable(result);
-
-        buttonClick();
+    $.get("moviefindMovie",{"pageNum":1}, function(result){
+        addTable(result.list);
+        $("#page").pagination(result.rowCount,{
+            callback:findPageList,//点击页码发起的分页查询请求
+            items_per_page:result.maxResult,//每页显示多少记录
+            next_text:">",//下一页图标
+            prev_text:"<",//上一页图标
+            num_display_entries:2,//中间的主体显示页数
+            num_edge_entries:1//边缘显示页数
+        });
     });
     add();
 });
 
+//分页查询方法 ,分页控件在调用这个方法时会传入一个当前页的下表进来
+function findPageList(pageNum){
+    $.get("moviefindMovie",{"pageNum":++pageNum},function(result){
+        addTable(result.list);
+    });
+}
+
 function addTable(result){
+    $("#movie_info").empty();
     $.each(result, function(index, obj){
         var types = "";
         var languages = "";
@@ -31,6 +45,8 @@ function addTable(result){
             "</div>");
 
     });
+
+    buttonClick();
 };
 
 //给添加按钮绑定click事件
@@ -101,7 +117,6 @@ function save(){
 //给编辑按钮绑定事件
 function buttonClick(){
     $("#movie_div .btn-info").on("click", function(){
-        $("#updateMovieView").modal("show");
         var id = $(this).prop("alt");
         $.get("moviefindMovieById",{"movie.movieId":id}, function(result){
             $("#movieId").val(result.movieId);
@@ -174,6 +189,7 @@ function buttonClick(){
                 });
             });
         });
+        $("#updateMovieView").modal("show");
 
         updateMovie();
         deleteMovie();
