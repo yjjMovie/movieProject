@@ -71,7 +71,7 @@ function buttonClick(){
             $.get("findUser", function(result){
                 $("#userName").empty();
                 $.each(result, function(index, obj){
-                    if(obj.userName = userName){
+                    if(obj.userName == userName){
                         $("#userName").append("<option value='"+obj.userId+"' selected='selected'>"+obj.userName+"</option>");
                     }else{
                         $("#userName").append("<option value='"+obj.userId+"'>"+obj.userName+"</option>");
