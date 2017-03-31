@@ -1,0 +1,66 @@
+
+body{
+    background-color: #494642;
+}
+
+table{
+    padding-top: 20px;
+    border-radius:3px;
+    margin:0px auto;
+}
+#all{
+    border-radius:18px;
+    background-color: #EDEDEF;
+    width: 45%;
+    height: 350px;
+    border: 2px gainsboro solid;
+    margin: 10% auto;
+    box-shadow:5px 5px 10px black;
+}
+#title{
+    border-radius:5px;
+    margin: 18px auto;
+    width: 90%;
+    height: 13%;
+    background-color: #FFF;
+    font-size: 30px;
+    text-align: left;
+}
+
+.Ye{
+    width:20%;
+    text-align: left;
+    height: 50px;
+    font-size: 20px;
+}
+#submit{
+    width:25%;
+    height: 40px;
+    border:0px;
+    background:#0082cc;
+    font-size:20px;
+    color:#FFF;
+    border-radius:5px;
+    margin: 10px 100px;
+}
+#submit:hover{
+    background:#0044cc;
+    color:#FFF;
+    cursor: pointer;
+}
+
+#name{
+    border:2px slategray solid;
+    border-radius: 3px;
+    width:95%;
+    height: 30px;
+}
+#pwd{
+    border:2px slategray solid;
+    border-radius: 3px;
+    width:95%;
+    height: 30px;
+}
+div{
+    font-size:14px;
+}

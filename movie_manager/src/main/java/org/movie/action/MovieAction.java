@@ -149,15 +149,14 @@ public class MovieAction {
     }
 
     public String findMovieList() throws Exception {
-        System.out.println("dsfdsf");
         movieList = service.findMovie();
+        System.out.println(movieList);
         return "findMovieList";
     }
 
     //根据ID查询电影
     public String findMovieById() throws Exception {
-        Movie m = service.findMovieById(movie.getMovieId());
-        movie = m;
+        movie = service.findMovieById(movie.getMovieId());
         return "findMovieById";
     }
 
@@ -165,13 +164,9 @@ public class MovieAction {
     public String updateMovie() throws Exception {
         uploadImg();
 
-        MovieArea movieArea = new MovieArea();
-        movieArea.setMovieAreaId(area.getMovieAreaId());
-        movie.setMovieArea(movieArea);
+        movie.setMovieArea(area);
 
-        MovieDate movieDate = new MovieDate();
-        movieDate.setMovieDateId(date.getMovieDateId());
-        movie.setMovieDate(movieDate);
+        movie.setMovieDate(date);
 
         for(int i=0;i<type.length;i++){
             MovieType movieType = new MovieType();
@@ -194,13 +189,9 @@ public class MovieAction {
 
         uploadImg();
 
-        MovieArea movieArea = new MovieArea();
-        movieArea.setMovieAreaId(area.getMovieAreaId());
-        movie.setMovieArea(movieArea);
+        movie.setMovieArea(area);
 
-        MovieDate movieDate = new MovieDate();
-        movieDate.setMovieDateId(date.getMovieDateId());
-        movie.setMovieDate(movieDate);
+        movie.setMovieDate(date);
 
         for(int i=0;i<type.length;i++){
             MovieType movieType = new MovieType();
@@ -219,9 +210,7 @@ public class MovieAction {
 
     //删除电影
     public String removeMovie() throws Exception {
-        System.out.println(movie.getMovieId());
         message = service.removeMovie(movie);
-
         return "removeMovie";
     }
 

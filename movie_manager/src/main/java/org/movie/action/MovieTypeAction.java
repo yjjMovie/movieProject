@@ -52,15 +52,14 @@ public class MovieTypeAction {
 
     //查询所有电影类型
     public String findType() throws Exception {
-        List<MovieType> list = service.findMovieType();
-        typeList = list;
+        typeList = service.findMovieType();
+        System.out.println(typeList);
         return "findType";
     }
 
     //根据ID查询电影类型
     public String findTypeById() throws Exception {
-        MovieType movieType = service.findMovieTypeById(type.getMovieTypeId());
-        type = movieType;
+        type = service.findMovieTypeById(type.getMovieTypeId());
         return "findTypeById";
     }
 

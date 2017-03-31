@@ -99,6 +99,11 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
         <!-- 依赖domain模块 -->
         <dependency>
             <groupId>com.movie</groupId>

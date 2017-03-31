@@ -2,7 +2,7 @@
 /*管理首页 index*/
 input{outline:none;margin-bottom:0px;}
 .top_search .search_global{width:83%;color:#333;}
-.top_search .search_global_button:hover{opacity:0.8;};
+.top_search .search_global_button:hover{opacity:0.8;}
 
 .home_blue2{margin-right:0px;}
 .home_tion_box{border:1px solid #dfdfdf;}

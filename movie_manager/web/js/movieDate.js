@@ -1,5 +1,5 @@
 $(function(){
-    $.get("datefindDate", function(result){
+    $.get("date_findDate", function(result){
         addTable(result);
 
         buttonClick();
@@ -32,7 +32,7 @@ function save(){
     $("#save").on("click",function(){
         //序列化表单
         var params = $("#f1").serialize();
-        $.post("dateaddDate", params, function(result){
+        $.post("date_addDate", params, function(result){
             alert(result);
             location.href = "movieDate.html";
         });
@@ -45,7 +45,7 @@ function buttonClick(){
     $("#tab :button").on("click", function(){
         $("#updateDateView").modal("show");
         var id = $(this).prop("alt");
-        $.get("datefindDateById",{"date.movieDateId":id}, function(result){
+        $.get("date_findDateById",{"date.movieDateId":id}, function(result){
             $("#movieDateId").val(result.movieDateId);
             $("#movieDateName").val(result.movieDateName);
         });
@@ -62,7 +62,7 @@ function update(){
         //序列化表单
         var params=$("#f2").serialize();
         //提交到后台更新
-        $.post("dateupdateDate", params ,function(result){
+        $.post("date_updateDate", params ,function(result){
             //更新列表数据
             alert(result);
             location.href = "movieDate.html";
@@ -73,7 +73,7 @@ function update(){
 function deleteDate(){
     $("#delete").on("click", function(){
         var params = $("#f2").serialize();
-        $.post("dateremoveDate", params, function(result){
+        $.post("date_removeDate", params, function(result){
             alert(result);
             location.href = "movieDate.html";
         });

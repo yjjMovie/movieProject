@@ -2,6 +2,7 @@ package org.movie.action;
 
 import org.movie.entity.Cinema;
 import org.movie.entity.MovieHall;
+import org.movie.exception.NotFoundException;
 import org.movie.service.MovieHallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -62,33 +63,35 @@ public class MovieHallAction {
 
     //查询所有影厅
     public String findHall() throws Exception {
-        List<MovieHall> list = service.findMovieHall();
-        hallList = list;
+        hallList = service.findMovieHall();
+        System.out.println(hallList);
         return "findHall";
+    }
+    //根据影院ID查询所有隶属于本影院下的所有影厅
+    public String findHallByCinemaId() throws Exception {
+        hallList  = service.findHallByCinemaId(cinema.getCinemaId());
+        if(hallList.size() != 0){
+            return "findHallByCinemaId";
+        }
+        throw new NotFoundException("该影院还没有添加影厅，请前往添加！");
     }
 
     //根据ID查询影厅
     public String findHallById() throws Exception {
-        MovieHall movieHall = service.findMovieHallById(hall.getMovieHallId());
-        hall = movieHall;
+        hall = service.findMovieHallById(hall.getMovieHallId());
         return "findHallById";
     }
 
     //更新影厅信息
     public String updateHall() throws Exception {
-        Cinema c = new Cinema();
-        c.setCinemaId(cinema.getCinemaId());
-        hall.setCinema(c);
+        hall.setCinema(cinema);
         message = service.update(hall);
-
         return "updateHall";
     }
 
     //添加影厅
     public String addHall() throws Exception {
-        Cinema c = new Cinema();
-        c.setCinemaId(cinema.getCinemaId());
-        hall.setCinema(c);
+        hall.setCinema(cinema);
         message = service.save(hall);
 
         return "addHall";

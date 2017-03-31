@@ -21,15 +21,15 @@ public class MovieHallService {
 
     public List<MovieHall> findMovieHall() {
         List<MovieHall> list = dao.findList(MovieHall.class);
-        for (MovieHall hall : list) {
-            hall.getCinema().setMovieHalls(null);
-        }
         return list;
     }
 
+    public List<MovieHall> findHallByCinemaId(String id){
+
+        return dao.findHallByCinemaId(id);
+    }
     public MovieHall findMovieHallById(String movieHallId) {
         MovieHall movieHall = dao.findById(MovieHall.class, movieHallId);
-        movieHall.getCinema().setMovieHalls(null);
         return movieHall;
     }
 

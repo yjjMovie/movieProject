@@ -2,7 +2,6 @@ package org.movie.dao;
 
 import org.movie.entity.Movie;
 import org.movie.utils.PageBean;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

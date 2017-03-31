@@ -1,5 +1,5 @@
 $(function(){
-    $.get("areafindArea", function(result){
+    $.get("area_findArea", function(result){
         addTable(result);
 
         buttonClick();
@@ -32,7 +32,7 @@ function save(){
     $("#save").on("click",function(){
         //序列化表单
         var params = $("#f1").serialize();
-        $.post("areaaddArea", params, function(result){
+        $.post("area_addArea", params, function(result){
             alert(result);
             location.href = "movieArea.html";
         });
@@ -45,7 +45,7 @@ function buttonClick(){
     $("#tab :button").on("click", function(){
         $("#updateAreaView").modal("show");
         var id = $(this).prop("alt");
-        $.get("areafindAreaById",{"area.movieAreaId":id}, function(result){
+        $.get("area_findAreaById",{"area.movieAreaId":id}, function(result){
             $("#movieAreaId").val(result.movieAreaId);
             $("#movieAreaName").val(result.movieAreaName);
         });
@@ -62,7 +62,7 @@ function updateArea(){
         //序列化表单
         var params=$("#f2").serialize();
         //提交到后台更新
-        $.post("areaupdateArea", params ,function(result){
+        $.post("area_updateArea", params ,function(result){
             //更新列表数据
             alert(result);
             location.href = "movieArea.html";
@@ -73,7 +73,7 @@ function updateArea(){
 function deleteArea(){
     $("#delete").on("click", function(){
         var params = $("#f2").serialize();
-        $.post("arearemoveArea", params, function(result){
+        $.post("area_removeArea", params, function(result){
             alert(result);
             location.href = "movieArea.html";
         });

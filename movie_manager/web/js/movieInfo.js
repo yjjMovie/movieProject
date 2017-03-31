@@ -1,5 +1,5 @@
 $(function(){
-    $.get("moviefindMovie",{"pageNum":1}, function(result){
+    $.get("movie_findMovie",{"pageNum":1}, function(result){
         addTable(result.list);
         $("#page").pagination(result.rowCount,{
             callback:findPageList,//点击页码发起的分页查询请求
@@ -10,12 +10,22 @@ $(function(){
             num_edge_entries:1//边缘显示页数
         });
     });
+    //findPage();
     add();
 });
-
+/*function findPage(){
+    $("#findPageNum").on("click", function(){
+        var pageNum  = $("#pageNum").val();
+        if(pageNum == "" && pageNum == 0){
+            alert("不能为空！");
+        }else{
+            findPageList(--pageNum);
+        }
+    });
+}*/
 //分页查询方法 ,分页控件在调用这个方法时会传入一个当前页的下表进来
 function findPageList(pageNum){
-    $.get("moviefindMovie",{"pageNum":++pageNum},function(result){
+    $.get("movie_findMovie",{"pageNum":++pageNum},function(result){
         addTable(result.list);
     });
 }
@@ -57,7 +67,7 @@ function add(){
         $("#addMovieView").modal("show");
 
         //查询全部电影类型
-        $.get("typefindType", function(result){
+        $.get("type_findType", function(result){
             $("#movieTypeName").empty();
             $.each(result, function(index, obj){
                 $("#movieTypeName").append("    <input type='checkbox' value='"+
@@ -66,7 +76,7 @@ function add(){
         });
 
         //查询全部电影地区
-        $.get("areafindArea", function(result){
+        $.get("area_findArea", function(result){
             $("#movieAreaName").empty();
             $.each(result, function(key, obj){
                 $("#movieAreaName").append("<option value="+obj.movieAreaId+">"+obj.movieAreaName+"</option>");
@@ -74,7 +84,7 @@ function add(){
         });
 
         //查找全部电影语言
-        $.get("languagefindLanguage", function(result){
+        $.get("language_findLanguage", function(result){
             $("#movieLanguageName").empty();
             $.each(result, function(index, obj){
                 $("#movieLanguageName").append("    <label><input type='checkbox' value='"+
@@ -83,7 +93,7 @@ function add(){
         });
 
         //查询全部电影年代
-        $.get("datefindDate", function(result){
+        $.get("date_findDate", function(result){
             $("#movieDateName").empty();
             $.each(result, function(key, obj){
                 $("#movieDateName").append("<option value="+obj.movieDateId+">"+obj.movieDateName+"</option>");
@@ -100,7 +110,7 @@ function save(){
         //序列化表单
         var formData = new FormData(document.getElementById("f1"));
         $.ajax({
-            url : "movieaddMovie",//请求的url
+            url : "movie_addMovie",//请求的url
             type : "post",//请求类型
             data : formData,//表单数据
             processData: false,//让jquery不处理发送的数据
@@ -118,7 +128,7 @@ function save(){
 function buttonClick(){
     $("#movie_div .btn-info").on("click", function(){
         var id = $(this).prop("alt");
-        $.get("moviefindMovieById",{"movie.movieId":id}, function(result){
+        $.get("movie_findMovieById",{"movie.movieId":id}, function(result){
             $("#movieId").val(result.movieId);
             $("#movieName").val(result.movieName);
             $("#moviePhoto").val(result.moviePhoto);
@@ -128,7 +138,7 @@ function buttonClick(){
             $("#movieActor").val(result.movieActor);
 
             var movieArea = result.movieArea.movieAreaName;
-            $.get("areafindArea", function(result){
+            $.get("area_findArea", function(result){
                 $("#movieArea").empty();
                 $.each(result, function(key, obj){
                     if(obj.movieAreaName == movieArea){
@@ -141,7 +151,7 @@ function buttonClick(){
 
 
             var movieDate = result.movieDate.movieDateName;
-            $.get("datefindDate", function(result){
+            $.get("date_findDate", function(result){
                 $("#movieDate").empty();
                 $.each(result, function(key, obj){
                     if(obj.movieAreaName == movieDate){
@@ -154,7 +164,7 @@ function buttonClick(){
 
 
             var types = result.movieTypes;
-            $.get("typefindType", function(result){
+            $.get("type_findType", function(result){
                 $("#movieType").empty();
                 $.each(result, function(key, obj){
                     var typeName = obj.movieTypeName;
@@ -172,7 +182,7 @@ function buttonClick(){
             });
 
             var languages = result.movieLanguages;
-            $.get("languagefindLanguage", function(result){
+            $.get("language_findLanguage", function(result){
                 $("#movieLanguage").empty();
                 $.each(result, function(key, obj){
                     var languageName = obj.movieLanguageName;
@@ -204,7 +214,7 @@ function updateMovie(){
         //序列化表单
         var formData = new FormData(document.getElementById("f2"));
         $.ajax({
-            url : "movieupdateMovie",//请求的url
+            url : "movie_updateMovie",//请求的url
             type : "post",//请求类型
             data : formData,//表单数据
             processData: false,//让jquery不处理发送的数据
@@ -213,23 +223,14 @@ function updateMovie(){
                 alert(result);
                 location.href = "movieInfo.html";
             }
-        });/*
-        //序列化表单
-        var params=$("#f2").serialize();
-        alert(params);
-        //提交到后台更新
-        $.post("movieupdateMovie", params ,function(result){
-            //更新列表数据
-            alert(result);
-            location.href = "movieInfo.html";
-        });*/
+        });
     });
 }
 
 function deleteMovie(){
     $("#delete").on("click", function(){
         var params = $("#f2").serialize();
-        $.post("movieremoveMovie", params, function(result){
+        $.post("movie_removeMovie", params, function(result){
             alert(result);
             location.href = "movieInfo.html";
         });

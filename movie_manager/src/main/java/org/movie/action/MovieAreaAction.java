@@ -51,15 +51,14 @@ public class MovieAreaAction {
 
     //查询所有电影地区
     public String findArea() throws Exception {
-        List<MovieArea> list = service.findMovieArea();
-        areaList = list;
+        areaList = service.findMovieArea();
+        System.out.println(areaList);
         return "findArea";
     }
 
     //根据ID查询电影地区
     public String findAreaById() throws Exception {
-        MovieArea movieArea = service.findMovieAreaById(area.getMovieAreaId());
-        area = movieArea;
+        area = service.findMovieAreaById(area.getMovieAreaId());
         return "findAreaById";
     }
 

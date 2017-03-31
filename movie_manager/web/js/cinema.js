@@ -1,5 +1,5 @@
 $(function(){
-    $.get("findCinema", function(result){
+    $.get("cinema_findCinema", function(result){
         addTable(result);
 
         buttonClick();
@@ -35,7 +35,7 @@ function save(){
     $("#save").on("click",function(){
         //序列化表单
         var params = $("#f1").serialize();
-        $.post("addCinema", params, function(result){
+        $.post("cinema_addCinema", params, function(result){
             alert(result);
             location.href = "cinema.html";
         });
@@ -48,7 +48,7 @@ function buttonClick(){
     $("#tab :button").on("click", function(){
         $("#updateCinemaView").modal("show");
         var id = $(this).prop("alt");
-        $.get("findCinemaById",{"cinema.cinemaId":id}, function(result){
+        $.get("cinema_findCinemaById",{"cinema.cinemaId":id}, function(result){
             $("#cinemaId").val(result.cinemaId);
             $("#cinemaName").val(result.cinemaName);
             $("#cinemaAddr").val(result.cinemaAddr);
@@ -67,7 +67,7 @@ function update(){
         //序列化表单
         var params=$("#f2").serialize();
         //提交到后台更新
-        $.post("updateCinema", params ,function(result){
+        $.post("cinema_updateCinema", params ,function(result){
             //更新列表数据
             alert(result);
             location.href = "cinema.html";
@@ -78,7 +78,7 @@ function update(){
 function deleteCinema(){
     $("#delete").on("click", function(){
         var params = $("#f2").serialize();
-        $.post("deleteCinema", params, function(result){
+        $.post("cinema_deleteCinema", params, function(result){
             alert(result);
             location.href = "cinema.html";
         })

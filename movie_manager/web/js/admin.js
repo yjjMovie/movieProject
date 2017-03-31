@@ -1,5 +1,5 @@
 $(function(){
-    $.get("findAdmin", function(result){
+    $.get("admin_findAdmin", function(result){
         addTable(result);
 
         buttonClick();
@@ -39,7 +39,7 @@ function save(){
     $("#save").on("click",function(){
         //序列化表单
         var params = $("#f1").serialize();
-        $.post("addAdmin", params, function(result){
+        $.post("admin_addAdmin", params, function(result){
             alert(result);
             location.href = "admin.html";
         });
@@ -58,7 +58,7 @@ function buttonClick(){
         var verName2 = "禁用";
 
         $("#ver").empty();
-        $.get("findAdminById",{"admin.adminId":id}, function(result){
+        $.get("admin_findAdminById",{"admin.adminId":id}, function(result){
 
             $("#adminId").val(result.adminId);
             $("#adminName").val(result.adminName);
@@ -84,7 +84,7 @@ function update(){
         //序列化表单
         var params=$("#f2").serialize();
         //提交到后台更新
-        $.post("updateAdmin", params ,function(result){
+        $.post("admin_updateAdmin", params ,function(result){
             //更新列表数据
             alert(result);
             location.href = "admin.html";
@@ -95,7 +95,7 @@ function update(){
 function deleteAdmin(){
     $("#delete").on("click", function(){
         var params = $("#f2").serialize();
-        $.post("deleteAdmin", params, function(result){
+        $.post("admin_deleteAdmin", params, function(result){
             alert(result);
             location.href = "admin.html";
         })

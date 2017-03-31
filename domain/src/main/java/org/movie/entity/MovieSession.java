@@ -20,6 +20,7 @@ public class MovieSession {
     private Date endTime;
     private Movie movie;
     private Cinema cinema;
+    private MovieHall movieHall;
 
     @Id
     @GeneratedValue(generator="myuuid")
@@ -78,5 +79,15 @@ public class MovieSession {
 
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="hall_id")
+    public MovieHall getMovieHall() {
+        return movieHall;
+    }
+
+    public void setMovieHall(MovieHall movieHall) {
+        this.movieHall = movieHall;
     }
 }

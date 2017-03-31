@@ -2,6 +2,7 @@ package org.movie.action;
 
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.movie.entity.Admin;
 import org.movie.service.AdminService;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Controller("adminAction")
 @Scope("prototype")
-public class AdminAction {
+public class AdminAction extends ActionSupport {
 
     //管理员业务层
     @Autowired
@@ -39,7 +40,6 @@ public class AdminAction {
         this.message = message;
     }
 
-
     public Admin getAdmin() {
         return admin;
     }
@@ -56,35 +56,48 @@ public class AdminAction {
         this.adminList = adminList;
     }
 
-    //查询全部的管理员
-    public String findAdmin() throws IOException {
+    public String login(){
 
-        List<Admin> list = service.findAdmin();
-        adminList = list;
-        return "success";
+        Admin ad  = service.findAdminByName(admin);
+
+        if(ad == null){
+            this.addActionError("用户名或密码错误！");
+            System.out.println("111");
+            return "loginFail";
+        }else{
+            ActionContext.getContext().getSession().put("admin", ad);
+            return "loginSuccess";
+        }
+    }
+
+    //查询全部的管理员
+    public String findAdmin() {
+
+        adminList = service.findAdmin();
+        System.out.println(adminList);
+        return "findAdmin";
     }
 
     //根据ID查询管理员
-    public String findAdminById(){
-        Admin a = service.findAdminById(admin.getAdminId());
-        admin = a;
-        return "success";
+    public String findAdminById() {
+        admin = service.findAdminById(admin.getAdminId());
+        return "findAdminById";
     }
 
     //添加管理员
-    public String addAdmin() throws Exception {
+    public String addAdmin() {
 
         message = service.save(admin);
-        return "success";
+        return "addAdmin";
     }
 
-    public String updateAdmin() throws Exception {
+    public String updateAdmin() {
         message = service.update(admin);
-        return "success";
+        return "updateAdmin";
     }
 
-    public String deleteAdmin() throws Exception {
+    public String deleteAdmin() {
         message = service.remove(admin);
-        return "success";
+        return "deleteAdmin";
     }
 }

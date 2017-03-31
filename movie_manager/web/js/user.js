@@ -1,5 +1,5 @@
 $(function(){
-    $.get("findUser", function(result){
+    $.get("user_findUser", function(result){
         addTable(result);
 
         buttonClick();
@@ -43,7 +43,7 @@ function save(){
     $("#save").on("click",function(){
         //序列化表单
         var params = $("#f1").serialize();
-        $.post("addUser", params, function(result){
+        $.post("user_addUser", params, function(result){
             alert(result);
             location.href = "user.html";
         });
@@ -62,7 +62,7 @@ function buttonClick(){
         var woman = "女";
 
         $("#userSex").empty();
-        $.get("findUserById",{"user.userId":id}, function(result){
+        $.get("user_findUserById",{"user.userId":id}, function(result){
 
             $("#userId").val(result.userId);
             $("#userName").val(result.userName);
@@ -90,7 +90,7 @@ function update(){
         //序列化表单
         var params=$("#f2").serialize();
         //提交到后台更新
-        $.post("updateUser", params ,function(result){
+        $.post("user_updateUser", params ,function(result){
             //更新列表数据
             alert(result);
             location.href = "user.html";
@@ -101,7 +101,7 @@ function update(){
 function deleteUser(){
     $("#delete").on("click", function(){
         var params = $("#f2").serialize();
-        $.post("deleteUser", params, function(result){
+        $.post("user_deleteUser", params, function(result){
             alert(result);
             location.href = "user.html";
         })

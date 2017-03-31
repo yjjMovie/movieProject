@@ -7,4 +7,5 @@ import org.movie.entity.Admin;
  * Created by Administrator on 2017/03/16.
  */
 public interface AdminDao extends BaseDao<Admin> {
+   public Admin findByName(Class<Admin> adminClass, Admin admin);
 }

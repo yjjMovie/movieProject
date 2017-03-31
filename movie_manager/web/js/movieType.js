@@ -1,5 +1,5 @@
 $(function(){
-    $.get("typefindType", function(result){
+    $.get("type_findType", function(result){
         addTable(result);
 
         buttonClick();
@@ -32,7 +32,7 @@ function save(){
     $("#save").on("click",function(){
         //序列化表单
         var params = $("#f1").serialize();
-        $.post("typeaddType", params, function(result){
+        $.post("type_addType", params, function(result){
             alert(result);
             location.href = "movieType.html";
         });
@@ -45,7 +45,7 @@ function buttonClick(){
     $("#tab :button").on("click", function(){
         $("#updateTypeView").modal("show");
         var id = $(this).prop("alt");
-        $.get("typefindTypeById",{"type.movieTypeId":id}, function(result){
+        $.get("type_findTypeById",{"type.movieTypeId":id}, function(result){
             $("#movieTypeId").val(result.movieTypeId);
             $("#movieTypeName").val(result.movieTypeName);
         });
@@ -62,7 +62,7 @@ function update(){
         //序列化表单
         var params=$("#f2").serialize();
         //提交到后台更新
-        $.post("typeupdateType", params ,function(result){
+        $.post("type_updateType", params ,function(result){
             //更新列表数据
             alert(result);
             location.href = "movieType.html";
@@ -73,7 +73,7 @@ function update(){
 function deleteType(){
     $("#delete").on("click", function(){
         var params = $("#f2").serialize();
-        $.post("typeremoveType", params, function(result){
+        $.post("type_removeType", params, function(result){
             alert(result);
             location.href = "movieType.html";
         });

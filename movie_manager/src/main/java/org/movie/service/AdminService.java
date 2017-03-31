@@ -1,5 +1,6 @@
 package org.movie.service;
 
+import com.opensymphony.xwork2.ActionContext;
 import org.movie.dao.AdminDao;
 import org.movie.entity.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class AdminService {
     public Admin findAdminById(String id){
         Admin admin = dao.findById(Admin.class, id);
         return admin;
+    }
+    public Admin findAdminByName(Admin admin){
+
+        return dao.findByName(Admin.class, admin);
     }
 
     public String update(Admin admin) {

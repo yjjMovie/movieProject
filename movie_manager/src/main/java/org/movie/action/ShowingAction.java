@@ -3,6 +3,7 @@ package org.movie.action;
 import org.movie.entity.Cinema;
 import org.movie.entity.Movie;
 import org.movie.entity.Showing;
+import org.movie.exception.NotFoundException;
 import org.movie.service.ShowingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -68,7 +69,15 @@ public class ShowingAction {
 
     public String findShowing(){
         showingList = service.findShowing();
+        System.out.println(showingList);
         return "findShowing";
+    }
+    public String findShowingByCinemaId(){
+        showingList = service.findShowingByCinemaId(cinema.getCinemaId());
+        if(showingList.size() != 0){
+            return "findShowingByCinemaId";
+        }
+        throw new NotFoundException("该影院还没有上映电影！");
     }
 
     public String findShowingById(){
@@ -77,12 +86,9 @@ public class ShowingAction {
     }
 
     public String updateShowing() throws Exception {
-        Movie m = new Movie();
-        m.setMovieId(movie.getMovieId());
-        System.out.println(cinema.getCinemaId());
         Cinema c =  service.findCinameById(cinema.getCinemaId());
         c.setMovieHalls(null);
-        showing.setMovie(m);
+        showing.setMovie(movie);
         showing.getCinemas().add(c);
         message = service.update(showing);
 
@@ -90,13 +96,9 @@ public class ShowingAction {
     }
 
     public String addShowing() throws Exception {
-
-        Movie m = new Movie();
-        m.setMovieId(movie.getMovieId());
-        System.out.println(cinema.getCinemaId());
         Cinema c =  service.findCinameById(cinema.getCinemaId());
         c.setMovieHalls(null);
-        showing.setMovie(m);
+        showing.setMovie(movie);
         showing.getCinemas().add(c);
 
         message = service.save(showing);

@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>MOVIE管理系统</title>
+
+	  <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+	  <script src="js/bootstrap.min.js"></script>
+	  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	  <script src="../js/orderItem.js"></script>
+  </head>
+  <body>
+
+    <div class="container" style="width:98%;">
+		<h5 class="page-header">订单项管理</h5>
+		<form id="f1">
+			用户：<input type="text" name="condition.userName" class="form-control" />
+			电影名称：<input type="text" name="condition.movieName" class="form-control" />
+			影院：<input type="text" name="condition.cinemaName" class="form-control" />
+			<input id="findItemByCondition" type="button" class="btn btn-primary" value="查询" />
+			<input id="findItem" type="button" class="btn btn-primary" value="查询所有订单" />
+		</form>
+		<table class="table table-bordered table-hover table-condensed" id="tab">
+		<tr>
+			<td>编号</td>
+			<td>下单用户</td>
+			<td>电影名称</td>
+			<td>所属影院</td>
+			<td>影院电话</td>
+			<td>所属影厅</td>
+			<td>播放时间</td>
+			<td>票数</td>
+			<td>总金额</td>
+		</tr>
+	</table>
+    </div>
+  </body>
+</html>
+
+

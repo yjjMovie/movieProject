@@ -25,6 +25,7 @@ public class MovieDaoImpl extends BaseDaoImpl<Movie> implements MovieDao {
         return list;
     }
 
+
     @Override
     public List<Movie> findList() {
         String jpql = "from Movie m";

@@ -69,8 +69,8 @@ public class CommentAction {
 
 
     public String findComment(){
-        List<Comment> list = service.findComment();
-        commentList = list;
+        commentList = service.findComment();
+        System.out.println(commentList);
         return "findComment";
     }
 
@@ -80,25 +80,17 @@ public class CommentAction {
         return "findCommentById";
     }
     public String updateComment() throws Exception {
-        User u = new User();
-        u.setUserId(user.getUserId());
-        Movie m = new Movie();
-        m.setMovieId(movie.getMovieId());
-        comment.setUser(u);
-        comment.setMovie(m);
+        comment.setUser(user);
+        comment.setMovie(movie);
         message = service.update(comment);
 
         return "updateComment";
     }
 
     public String addComment() throws Exception {
-        User u = new User();
-        u.setUserId(user.getUserId());
-        Movie m = new Movie();
-        m.setMovieId(movie.getMovieId());
-        comment.setCommentTime(new Date(System.currentTimeMillis()));
-        comment.setUser(u);
-        comment.setMovie(m);
+        comment.setUser(user);
+        comment.setMovie(movie);
+        comment.setCommentTime(new Date(System.currentTimeMillis()));;
         message = service.save(comment);
 
         return "addComment";

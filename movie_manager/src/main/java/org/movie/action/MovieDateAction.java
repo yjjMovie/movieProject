@@ -52,15 +52,14 @@ public class MovieDateAction {
 
     //查询所有电影年代
     public String findDate() throws Exception {
-        List<MovieDate> list = service.findMovieDate();
-        dateList = list;
+        dateList = service.findMovieDate();
+        System.out.println(dateList);
         return "findDate";
     }
 
     //根据ID查询电影年代
     public String findDateById() throws Exception {
-        MovieDate movieDate = service.findMovieDateById(date.getMovieDateId());
-        date = movieDate;
+        date = service.findMovieDateById(date.getMovieDateId());
         return "findDateById";
     }
 

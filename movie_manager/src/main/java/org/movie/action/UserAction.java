@@ -54,33 +54,31 @@ public class UserAction {
 
     //查询全部的用户
     public String findUser() throws IOException {
-
-        List<User> list = service.findUser();
-        userList = list;
-        return "success";
+        userList = service.findUser();
+        System.out.println(userList);
+        return "findUser";
     }
 
     //根据ID查询用户
     public String findUserById(){
-        User a = service.findUserById(user.getUserId());
-        user = a;
-        return "success";
+        user = service.findUserById(user.getUserId());
+        return "findUserById";
     }
 
     //添加用户
     public String addUser() throws Exception {
         System.out.println(user.getUserSex());
         message = service.save(user);
-        return "success";
+        return "addUser";
     }
 
     public String updateUser() throws Exception {
         message = service.update(user);
-        return "success";
+        return "updateUser";
     }
 
     public String deleteUser() throws Exception {
         message = service.remove(user);
-        return "success";
+        return "deleteUser";
     }
 }

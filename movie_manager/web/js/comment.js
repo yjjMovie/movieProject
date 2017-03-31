@@ -25,12 +25,12 @@ function addTable(result){
 function add(){
     $("#addComment").on("click", function(){
         $("#f1 :input").val("");
-        $.get("findUser", function(result){
+        $.get("user_findUser", function(result){
             $.each(result, function(index, obj){
                 $("#user").append("<option value='"+obj.userId+"'>"+obj.userName+"</option>");
             });
         })
-        $.get("moviefindMovieList", function(result){
+        $.get("movie_findMovieList", function(result){
             $.each(result, function(index, obj){
                 $("#movie").append("<option value='"+obj.movieId+"'>"+obj.movieName+"</option>");
             });
@@ -64,27 +64,25 @@ function buttonClick(){
             $("#commentId").val(result.commentId);
             $("#commentDesc").val(result.commentDesc);
             $("#commentTime").val(result.commentTime);
-            var userName = result.user.userName;
+            var uname = result.user.userName;
             var movieName = result.movie.movieName;
 
-
-            $.get("findUser", function(result){
+            $.get("user_findUser", function(result){
                 $("#userName").empty();
                 $.each(result, function(index, obj){
-                    if(obj.userName = userName){
+                    if(obj.userName == uname){
                         $("#userName").append("<option value='"+obj.userId+"' selected='selected'>"+obj.userName+"</option>");
                     }else{
                         $("#userName").append("<option value='"+obj.userId+"'>"+obj.userName+"</option>");
                     }
                 });
-            })
+            });
 
-            $.get("moviefindMovieList", function(result){
+            $.get("movie_findMovieList", function(result){
                 $("#movieName").empty();
                 $.each(result, function(index, obj){
                     if(obj.movieName == movieName){
                         $("#movieName").append("<option value='"+obj.movieId+"' selected='selected'>"+obj.movieName+"</option>");
-
                     }else{
                         $("#movieName").append("<option value='"+obj.movieId+"'>"+obj.movieName+"</option>");
                     }

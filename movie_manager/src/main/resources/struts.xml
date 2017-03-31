@@ -14,116 +14,102 @@
     <!-- 上传文件的总大小（单位：字节）， 默认是10M -->
     <constant name="struts.multipart.maxSize" value="104857600" />
 
-    <!-- 管理员pkg -->
-    <package name="adminPkg" extends="struts-default,json-default" strict-method-invocation="false">
-        <!-- 查询全部管理员action -->
-        <action name="findAdmin" class="adminAction" method="findAdmin">
-            <result type="json">
+    <package name="struts2" extends="struts-default,json-default" strict-method-invocation="false">
+
+        <action name="index" class="adminAction" method="execute">
+            <result name="index">login.jsp</result>
+        </action>
+
+        <!-- ~~~~~~~~~~~管理员Action~~~~~~~~~~~~ -->
+        <action name="admin_*" class="adminAction" method="{1}">
+            <result name="loginFail">login.jsp</result>
+            <result name="loginSuccess">page/index.jsp</result>
+            <result type="json" name="findAdmin">
                 <param name="root">adminList</param>
             </result>
-        </action>
-        <!-- 根据ID查询管理员action -->
-        <action name="findAdminById" class="adminAction" method="findAdminById">
-            <result type="json">
+
+            <result type="json" name="findAdminById">
                 <param name="root">admin</param>
             </result>
-        </action>
-        <!-- 添加管理员action -->
-        <action name="addAdmin" class="adminAction" method="addAdmin">
-            <result type="json">
-                <param name="root">message</param>
-            </result>
-        </action>
-        <!-- 修改管理员action -->
-        <action name="updateAdmin" class="adminAction" method="updateAdmin">
-            <result type="json">
-                <param name="root">message</param>
-            </result>
-        </action>
-        <!-- 删除管理员action -->
-        <action name="deleteAdmin" class="adminAction" method="deleteAdmin">
-            <result type="json">
-                <param name="root">message</param>
-            </result>
-        </action>
-    </package>
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <result type="json" name="addAdmin">
+                <param name="root">message</param>
+            </result>
 
-    <!-- 用户pkg -->
-    <package name="userPkg" extends="struts-default,json-default" strict-method-invocation="false">
-        <!-- 查询全部用户action -->
-        <action name="findUser" class="org.movie.action.UserAction" method="findUser">
-            <result type="json">
+            <result type="json" name="updateAdmin">
+                <param name="root">message</param>
+            </result>
+
+            <result type="json" name="deleteAdmin">
+                <param name="root">message</param>
+            </result>
+        </action>
+
+
+        <!-- ~~~~~~~~~~~用户Action~~~~~~~~~~~~ -->
+        <action name="user_*" class="userAction" method="{1}">
+            <result type="json" name="findUser">
                 <param name="root">userList</param>
             </result>
-        </action>
-        <!-- 根据ID查询用户action -->
-        <action name="findUserById" class="org.movie.action.UserAction" method="findUserById">
-            <result type="json">
+
+            <result type="json" name="findUserById">
                 <param name="root">user</param>
             </result>
-        </action>
-        <!-- 添加用户action -->
-        <action name="addUser" class="org.movie.action.UserAction" method="addUser">
-            <result type="json">
+
+            <result type="json" name="addUser">
                 <param name="root">message</param>
             </result>
-        </action>
-        <!-- 修改用户action -->
-        <action name="updateUser" class="org.movie.action.UserAction" method="updateUser">
-            <result type="json">
+
+            <result type="json" name="updateUser">
                 <param name="root">message</param>
             </result>
-        </action>
-        <!-- 删除用户action -->
-        <action name="deleteUser" class="org.movie.action.UserAction" method="deleteUser">
-            <result type="json">
+
+            <result type="json" name="deleteUser">
                 <param name="root">message</param>
             </result>
         </action>
 
-    </package>
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <!-- 影院pkg -->
-    <package name="cinemaPkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <action name="findCinema" class="org.movie.action.CinemaAction" method="findCinema">
-            <result type="json">
+        <!-- ~~~~~~~~~~~影院Action~~~~~~~~~~~~ -->
+        <action name="cinema_*" class="cinemaAction" method="{1}">
+            <result type="json" name="findCinema">
                 <param name="root">cinemaList</param>
             </result>
-        </action>
-        <action name="findCinemaById" class="org.movie.action.CinemaAction" method="findCinemaById">
-            <result type="json">
+
+            <result type="json" name="findCinemaById">
                 <param name="root">cinema</param>
             </result>
-        </action>
-        <action name="updateCinema" class="org.movie.action.CinemaAction" method="update">
-            <result type="json">
-                <param name="root">message</param>
-            </result>
-        </action>
-        <action name="addCinema" class="org.movie.action.CinemaAction" method="save">
-            <result type="json">
-                <param name="root">message</param>
-            </result>
-        </action>
-        <action name="deleteCinema" class="org.movie.action.CinemaAction" method="remove">
-            <result type="json">
-                <param name="root">message</param>
-            </result>
-        </action>
-    </package>
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <result type="json" name="addCinema">
+                <param name="root">message</param>
+            </result>
 
-    <!-- 影厅pkg -->
-    <package name="hallPkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <action name="hall*" class="org.movie.action.MovieHallAction" method="{1}">
+            <result type="json" name="updateCinema">
+                <param name="root">message</param>
+            </result>
+
+            <result type="json" name="deleteCinema">
+                <param name="root">message</param>
+            </result>
+        </action>
+
+        <!-- ~~~~~~~~~~~影厅Action~~~~~~~~~~~~ -->
+        <action name="hall_*" class="movieHallAction" method="{1}">
+            <!-- 配置自定义异常，result对应相应结果集的name属性 -->
+            <exception-mapping result="hallNotFound" exception="org.movie.exception.NotFoundException"/>
+
             <result name="findHall" type="json">
                 <param name="root">hallList</param>
             </result>
+            <result name="findHallByCinemaId" type="json">
+                <param name="root">hallList</param>
+            </result>
+
+            <result name="hallNotFound" type="json">
+                <!-- 将struts2的exception对象设置为root -->
+                <param name="root">exception</param>
+            </result>
+
             <result name="findHallById" type="json">
                 <param name="root">hall</param>
             </result>
@@ -137,13 +123,9 @@
                 <param name="root">message</param>
             </result>
         </action>
-    </package>
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <!-- 电影类型pkg -->
-    <package name="typePkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <action name="type*" class="org.movie.action.MovieTypeAction" method="{1}">
+        <!-- ~~~~~~~~~~~电影类型Action~~~~~~~~~~~~ -->
+        <action name="type_*" class="movieTypeAction" method="{1}">
             <result name="findType" type="json">
                 <param name="root">typeList</param>
             </result>
@@ -160,13 +142,9 @@
                 <param name="root">message</param>
             </result>
         </action>
-    </package>
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <!-- 电影年代pkg -->
-    <package name="datePkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <action name="date*" class="org.movie.action.MovieDateAction" method="{1}">
+        <!-- ~~~~~~~~~~~电影年代Action~~~~~~~~~~~~ -->
+        <action name="date_*" class="movieDateAction" method="{1}">
             <result name="findDate" type="json">
                 <param name="root">dateList</param>
             </result>
@@ -183,13 +161,9 @@
                 <param name="root">message</param>
             </result>
         </action>
-    </package>
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <!-- 电影地区pkg -->
-    <package name="areaPkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <action name="area*" class="org.movie.action.MovieAreaAction" method="{1}">
+        <!-- ~~~~~~~~~~~电影地区Action~~~~~~~~~~~~ -->
+        <action name="area_*" class="movieAreaAction" method="{1}">
             <result name="findArea" type="json">
                 <param name="root">areaList</param>
             </result>
@@ -206,12 +180,10 @@
                 <param name="root">message</param>
             </result>
         </action>
-    </package>
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <!-- 电影语言pkg -->
-    <package name="LanguagePkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <action name="language*" class="org.movie.action.MovieLanguageAction" method="{1}">
+
+        <!-- ~~~~~~~~~~~电影语言Action~~~~~~~~~~~~ -->
+        <action name="language_*" class="movieLanguageAction" method="{1}">
             <result name="findLanguage" type="json">
                 <param name="root">languageList</param>
             </result>
@@ -228,8 +200,99 @@
                 <param name="root">message</param>
             </result>
         </action>
+
+        <!-- ~~~~~~~~~~~用户评论Action~~~~~~~~~~~~ -->
+        <action name="comment_*" class="commentAction" method="{1}">
+            <result name="findComment" type="json">
+                <param name="root">commentList</param>
+            </result>
+            <result name="findCommentById" type="json">
+                <param name="root">comment</param>
+            </result>
+            <result name="updateComment" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addComment" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="deleteComment" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+
+        <!-- ~~~~~~~~~~~电影上映Action~~~~~~~~~~~~ -->
+        <action name="showing_*" class="showingAction" method="{1}">
+
+            <exception-mapping exception="org.movie.exception.NotFoundException" result="showingNotFound" />
+
+            <result name="findShowing" type="json">
+                <param name="root">showingList</param>
+            </result>
+            <result name="findShowingByCinemaId" type="json">
+                <param name="root">showingList</param>
+            </result>
+
+            <result name="showingNotFound" type="json">
+                <param name="root">exception</param>
+            </result>
+
+            <result name="findShowingById" type="json">
+                <param name="root">showing</param>
+            </result>
+            <result name="updateShowing" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addShowing" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="deleteShowing" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+
+        <!-- ~~~~~~~~~~~电影场次Action~~~~~~~~~~~~ -->
+        <action name="session_*" class="sessionAction" method="{1}">
+
+            <exception-mapping exception="org.movie.exception.NotFoundException" result="hallNotFound" />
+            <result name="hallNotFound" type="json">
+                <param name="root">exception</param>
+            </result>
+
+            <result name="findSession" type="json">
+                <param name="root">sessionList</param>
+            </result>
+            <result name="findHallByMovieId" type="json">
+                <param name="root">sessionList</param>
+            </result>
+            <result name="findStartById" type="json">
+                <param name="root">sessionList</param>
+            </result>
+            <result name="updateSession" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="addSession" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="deleteSession" type="json">
+                <param name="root">message</param>
+            </result>
+        </action>
+
+        <action name="item_*" class="itemAction" method="{1}">
+            <exception-mapping exception="org.movie.exception.NotFoundException" result="resultNotFound" />
+            <result name="findItem" type="json">
+                <param name="root">itemList</param>
+            </result>
+            <result name="findItemByCondition" type="json">
+                <param name="root">itemList</param>
+            </result>
+            <result name="resultNotFound" type="json">
+                <param name="root">exception</param>
+            </result>
+        </action>
+
     </package>
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
 
     <!-- 电影pkg -->
     <package name="moviePkg" extends="json-default,struts-default" strict-method-invocation="false">
@@ -249,7 +312,7 @@
         </interceptors>
 
 
-        <action name="movie*" class="org.movie.action.MovieAction" method="{1}">
+        <action name="movie_*" class="movieAction" method="{1}">
             <interceptor-ref name="myStack" />
 
             <result name="findMovie" type="json">
@@ -278,52 +341,7 @@
                 <param name="root">message</param>
             </result>
         </action>
-    </package>
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <!-- 评论pkg -->
-    <package name="commentPkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <action name="comment_*" class="org.movie.action.CommentAction" method="{1}">
-            <result name="findComment" type="json">
-                <param name="root">commentList</param>
-            </result>
-            <result name="findCommentById" type="json">
-                <param name="root">comment</param>
-            </result>
-            <result name="updateComment" type="json">
-                <param name="root">message</param>
-            </result>
-            <result name="addComment" type="json">
-                <param name="root">message</param>
-            </result>
-            <result name="deleteComment" type="json">
-                <param name="root">message</param>
-            </result>
-        </action>
-    </package>
-
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <!-- 上映pkg -->
-    <package name="showingPkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <action name="showing_*" class="org.movie.action.ShowingAction" method="{1}">
-            <result name="findShowing" type="json">
-                <param name="root">showingList</param>
-            </result>
-            <result name="findShowingById" type="json">
-                <param name="root">showing</param>
-            </result>
-            <result name="updateShowing" type="json">
-                <param name="root">message</param>
-            </result>
-            <result name="addShowing" type="json">
-                <param name="root">message</param>
-            </result>
-            <result name="deleteShowing" type="json">
-                <param name="root">message</param>
-            </result>
-        </action>
     </package>
 
 </struts>

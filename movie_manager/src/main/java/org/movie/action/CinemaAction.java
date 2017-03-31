@@ -51,31 +51,28 @@ public class CinemaAction {
 
     //查询所有影院
     public String findCinema() throws Exception {
-        List<Cinema> list = service.findCinema();
-        cinemaList = list;
-        return "success";
+        cinemaList = service.findCinema();
+        System.out.println(cinemaList);
+        return "findCinema";
     }
 
     public String findCinemaById() throws Exception {
-        Cinema c = service.findCinemaById(cinema.getCinemaId());
-        cinema = c;
-        return "success";
+        cinema = service.findCinemaById(cinema.getCinemaId());
+        return "findCinemaById";
     }
 
-    public String update() throws Exception {
+    public String updateCinema() throws Exception {
         message = service.update(cinema);
-        return "success";
+        return "updateCinema";
     }
 
-    public String save() throws Exception {
+    public String addCinema() throws Exception {
         message = service.save(cinema);
-
-        return "success";
+        return "addCinema";
     }
 
-    public String remove() throws Exception {
+    public String deleteCinema() throws Exception {
         message = service.remove(cinema);
-
-        return "success";
+        return "deleteCinema";
     }
 }

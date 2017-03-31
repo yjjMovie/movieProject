@@ -1,5 +1,5 @@
 $(function(){
-    $.get("languagefindLanguage", function(result){
+    $.get("language_findLanguage", function(result){
         addTable(result);
 
         buttonClick();
@@ -32,7 +32,7 @@ function save(){
     $("#save").on("click",function(){
         //序列化表单
         var params = $("#f1").serialize();
-        $.post("languageaddLanguage", params, function(result){
+        $.post("language_addLanguage", params, function(result){
             alert(result);
             location.href = "movieLanguage.html";
         });
@@ -45,7 +45,7 @@ function buttonClick(){
     $("#tab :button").on("click", function(){
         $("#updateLanguageView").modal("show");
         var id = $(this).prop("alt");
-        $.get("languagefindLanguageById",{"language.movieLanguageId":id}, function(result){
+        $.get("language_findLanguageById",{"language.movieLanguageId":id}, function(result){
             $("#movieLanguageId").val(result.movieLanguageId);
             $("#movieLanguageName").val(result.movieLanguageName);
         });
@@ -62,7 +62,7 @@ function updateLanguage(){
         //序列化表单
         var params=$("#f2").serialize();
         //提交到后台更新
-        $.post("languageupdateLanguage", params ,function(result){
+        $.post("language_updateLanguage", params ,function(result){
             //更新列表数据
             alert(result);
             location.href = "movieLanguage.html";
@@ -73,7 +73,7 @@ function updateLanguage(){
 function deleteLanguage(){
     $("#delete").on("click", function(){
         var params = $("#f2").serialize();
-        $.post("languageremoveLanguage", params, function(result){
+        $.post("language_removeLanguage", params, function(result){
             alert(result);
             location.href = "movieLanguage.html";
         });

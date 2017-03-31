@@ -13,9 +13,9 @@ function addTable(result){
 
         $("table").append("<tr>" +
             "<td>"+(++index)+"</td>"+
+            "<td>"+obj.movie.movieName+"</td>"+
             "<td>"+obj.showingTime+"</td>"+
             "<td>"+obj.outawayTime+"</td>"+
-            "<td>"+obj.movie.movieName+"</td>"+
             "<td>"+obj.cinemas[0].cinemaName+"</td>"+
             "<td><input  alt='"+obj.showingId+"' type='button' class='btn btn-danger btn-sm' value='编辑'></td>");
     });
@@ -25,13 +25,13 @@ function addTable(result){
 function add(){
     $("#addShowing").on("click", function(){
         $("#f1 :input").val("");
-        $.get("findCinema", function(result){
+        $.get("cinema_findCinema", function(result){
             $("#cinema").empty();
             $.each(result, function(index, obj){
                 $("#cinema").append("<option value='"+obj.cinemaId+"'>"+obj.cinemaName+"</option>");
             });
         })
-        $.get("moviefindMovieList", function(result){
+        $.get("movie_findMovieList", function(result){
             $("#movie").empty();
             $.each(result, function(index, obj){
                 $("#movie").append("<option value='"+obj.movieId+"'>"+obj.movieName+"</option>");
@@ -68,10 +68,8 @@ function buttonClick(){
             $("#outawayTime").val(result.outawayTime);
             var cinemaNames = result.cinemas[0].cinemaName;
             var movieName = result.movie.movieName;
-            alert(movieName);
 
-
-            $.get("moviefindMovieList", function(result){
+            $.get("movie_findMovieList", function(result){
                 $("#movieName").empty();
                 $.each(result, function(index, obj){
                     if(obj.movieName == movieName){
@@ -83,7 +81,7 @@ function buttonClick(){
                 });
             })
 
-            $.get("findCinema", function(result){
+            $.get("cinema_findCinema", function(result){
                 $("#cinemaName").empty();
                 $.each(result, function(index, obj){
                     if(obj.cinemaName == cinemaNames){
@@ -94,9 +92,7 @@ function buttonClick(){
                     }
                 });
             })
-
         });
-
         update();
         deleteShowing();
     });

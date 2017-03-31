@@ -51,15 +51,14 @@ public class MovieLanguageAction {
 
     //查询所有电影语言
     public String findLanguage() throws Exception {
-        List<MovieLanguage> list = service.findMovieLanguage();
-        languageList = list;
+        languageList = service.findMovieLanguage();
+        System.out.println(languageList);
         return "findLanguage";
     }
 
     //根据ID查询电影语言
     public String findLanguageById() throws Exception {
-        MovieLanguage movieLanguage = service.findMovieLanguageById(language.getMovieLanguageId());
-        language = movieLanguage;
+        language = service.findMovieLanguageById(language.getMovieLanguageId());
         return "findLanguageById";
     }
 

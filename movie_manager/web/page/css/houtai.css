@@ -1,7 +1,7 @@
 html,body{height:100%;}
 .scm{background:url(../image/min_bg.png) no-repeat;}
 #admin{font-size:14px;color:#545454;height:100%;}
-.ad-menu{float:left;width:225px;background-color:#494642;height:100%;overflow-y:auto;}
+.ad-menu{float:left;width:235px;background-color:#494642;height:100%;overflow-y:auto;}
 .ad-menu .ad-logo{padding:6px 0px 17px 0px;text-align:center;background-color:#63605c;}
 .ad-menu .ad-logo img { border-radius: 50px; }
 .ad-menu .ad-list{padding-top:15px;}
@@ -26,7 +26,7 @@ html,body{height:100%;}
 .ad-menu .ad-list .dd-item .dd-ar{width:13px;height:22px;background-position:-90px -73px;position:absolute;top:50%;right:-1px;margin-top:-11px;display:none;}
 .ad-menu .ad-list  dd.on .dd-ar{display:block;}
 .ad-menu .ad-list  dd.on .dd-item{color:#FFF;}
-.ad-comment-box{margin-left:225px;background-color:#ededef;height:100%;}
+.ad-comment-box{margin-left:235px;background-color:#ededef;height:100%;}
 .ad-comment-box .ad-top-comment{}
 .ad-top-comment .ad-message{height: 50px;padding:0 30px;background-color:#ededef;}
 .ad-top-comment .ad-message .ad-top-left{float:left;margin-top: 9px;}

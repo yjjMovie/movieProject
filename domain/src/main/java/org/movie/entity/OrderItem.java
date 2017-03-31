@@ -19,7 +19,9 @@ public class OrderItem {
     private Date itemTime;
     //小计
     private double subtotal;
+    //关联的用户
     private User user;
+    //关联的场次
     private MovieSession movieSession;
 
     @Id
@@ -54,7 +56,7 @@ public class OrderItem {
 
     @Column(name = "subtotal")
     public double getSubtotal() {
-        return subtotal;
+        return movieSession.getSessionPrice() * getItemNum();
     }
 
     public void setSubtotal(double subtotal) {
