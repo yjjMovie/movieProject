@@ -57,4 +57,20 @@ public class MovieAction {
         pageBean = service.findMovieByPage(pageNum);
         return "findMovieByPage";
     }
+
+    public String findMovieByShow(){
+        movieList = service.findMovieByShow();
+        return "findMovieByShow";
+    }
+
+    public String findMovieByPresell(){
+        movieList = service.findMovieByPresell();
+        return "findMovieByPresell";
+    }
+
+    public String findMovieById(){
+        movie = service.findMovieById(movie.getMovieId());
+        return "findMovieById";
+    }
+
 }

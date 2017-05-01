@@ -57,15 +57,14 @@ public class AdminAction extends ActionSupport {
     }
 
     public String login(){
-
         Admin ad  = service.findAdminByName(admin);
-
         if(ad == null){
             this.addActionError("用户名或密码错误！");
-            System.out.println("111");
+
             return "loginFail";
         }else{
-            ActionContext.getContext().getSession().put("admin", ad);
+            ServletActionContext.getRequest().getSession()
+                    .setAttribute("admin", ad);
             return "loginSuccess";
         }
     }

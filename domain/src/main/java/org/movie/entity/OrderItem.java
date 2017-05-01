@@ -3,7 +3,7 @@ package org.movie.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 /**
  * 购票订单项实体类
@@ -23,6 +23,8 @@ public class OrderItem {
     private User user;
     //关联的场次
     private MovieSession movieSession;
+    //座位
+    private List<HallColumn> hallColumns = new ArrayList<>();
 
     @Id
     @GeneratedValue(generator="myuuid")
@@ -38,7 +40,7 @@ public class OrderItem {
 
     @Column(name = "item_num")
     public int getItemNum() {
-        return itemNum;
+        return hallColumns.size();
     }
 
     public void setItemNum(int itemNum) {
@@ -81,5 +83,14 @@ public class OrderItem {
 
     public void setMovieSession(MovieSession movieSession) {
         this.movieSession = movieSession;
+    }
+
+    @OneToMany(fetch=FetchType.EAGER)
+    public List<HallColumn> getHallColumns() {
+        return hallColumns;
+    }
+
+    public void setHallColumns(List<HallColumn> hallColumns) {
+        this.hallColumns = hallColumns;
     }
 }

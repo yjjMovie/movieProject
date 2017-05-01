@@ -1,9 +1,9 @@
-package org.movie.intercepter;
+package org.movie.interceptor;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
+import org.apache.struts2.ServletActionContext;
 import org.movie.entity.Admin;
 
 /**
@@ -12,7 +12,8 @@ import org.movie.entity.Admin;
 public class PrivilegeInterceptor extends MethodFilterInterceptor {
     @Override
     protected String doIntercept(ActionInvocation invocation) throws Exception {
-        Admin admin = (Admin) ActionContext.getContext().getSession().get("admin");
+        Admin admin = (Admin) ServletActionContext.getRequest()
+                .getSession().getAttribute("admin");
         if(admin != null){
             return invocation.invoke();
         }else{

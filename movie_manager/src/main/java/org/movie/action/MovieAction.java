@@ -1,9 +1,11 @@
 package org.movie.action;
 
+import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.movie.entity.*;
 import org.movie.entity.Movie;
+import org.movie.exception.NotFoundException;
 import org.movie.service.MovieService;
 import org.movie.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import java.util.List;
  */
 @Controller("movieAction")
 @Scope("prototype")
-public class MovieAction {
+public class MovieAction extends ActionSupport {
 
     //电影信息业务层
     @Autowired
@@ -179,9 +181,12 @@ public class MovieAction {
             movieLanguage.setMovieLanguageId(language[i]);
             movie.getMovieLanguages().add(movieLanguage);
         }
-        message = service.updateMovie(movie);
-
-        return "updateMovie";
+        try{
+            message = service.updateMovie(movie);
+            return "updateMovie";
+        }catch(Exception e){
+            throw new NotFoundException("更新失败，请重新操作，不允许标点符号“·”！");
+        }
     }
 
     //添加电影
@@ -204,8 +209,12 @@ public class MovieAction {
             movieLanguage.setMovieLanguageId(language[i]);
             movie.getMovieLanguages().add(movieLanguage);
         }
-        message = service.saveMovie(movie);
-        return "addMovie";
+        try{
+            message = service.saveMovie(movie);
+            return "addMovie";
+        }catch(Exception e){
+            throw new NotFoundException("添加失败，请重新操作，不允许标点符号“·”！");
+        }
     }
 
     //删除电影

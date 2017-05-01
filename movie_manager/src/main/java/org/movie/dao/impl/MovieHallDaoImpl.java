@@ -14,7 +14,7 @@ import java.util.List;
 public class MovieHallDaoImpl extends BaseDaoImpl<MovieHall> implements MovieHallDao {
     @Override
     public List<MovieHall> findHallByCinemaId(String id) {
-        String jpql = "select m from MovieHall m join m.cinema c where c.cinemaId =?1";
+        String jpql = "from MovieHall m where m.cinema.cinemaId =?1 order by m.movieHallName";
         Query query = em.createQuery(jpql);
         query.setParameter(1,id);
         return query.getResultList();

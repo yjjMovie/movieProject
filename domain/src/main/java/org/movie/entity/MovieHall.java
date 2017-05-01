@@ -3,6 +3,7 @@ package org.movie.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.*;
 
 /**
  * 影厅实体类
@@ -14,10 +15,11 @@ public class MovieHall {
     private String movieHallId;
     private String movieHallName;
     private int seatingNum;
+    //列
     private int seatColumn;
     private int seatRow;
     private Cinema cinema;
-
+    private List<HallRow> hallRows = new ArrayList<>();
 
     @Id
     @GeneratedValue(generator="myuuid")
@@ -51,6 +53,9 @@ public class MovieHall {
 
     @Column(name = "seat_column")
     public int getSeatColumn() {
+        for (HallRow row : hallRows) {
+            seatColumn = row.getHallColumns().size();
+        }
         return seatColumn;
     }
 
@@ -60,7 +65,7 @@ public class MovieHall {
 
     @Column(name = "seat_row")
     public int getSeatRow() {
-        return seatRow;
+        return hallRows.size();
     }
 
     public void setSeatRow(int seatRow) {
@@ -75,5 +80,14 @@ public class MovieHall {
 
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
+    }
+
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "movieHall")
+    public List<HallRow> getHallRows() {
+        return hallRows;
+    }
+
+    public void setHallRows(List<HallRow> hallRows) {
+        this.hallRows = hallRows;
     }
 }

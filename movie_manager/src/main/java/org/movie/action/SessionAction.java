@@ -83,7 +83,7 @@ public class SessionAction {
         System.out.println(cinema.getCinemaId());
         sessionList = service.findSessionByCinemaId(cinema.getCinemaId());
         System.out.println(sessionList);
-        return "findSession";
+        return "findSessionByCinemaId";
     }
     public String findHallByMovieId() throws IOException {
         sessionList = service.findHallByMovieId(movie.getMovieId(),cinema.getCinemaId());

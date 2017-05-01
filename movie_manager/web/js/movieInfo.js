@@ -35,6 +35,7 @@ function addTable(result){
     $.each(result, function(index, obj){
         var types = "";
         var languages = "";
+        var state = "";
         $.each(obj.movieTypes, function(index, obj){
             types+=obj.movieTypeName+"/";
         });
@@ -43,17 +44,21 @@ function addTable(result){
         });
         types = types.substring(0,types.length-1);
         languages = languages.substring(0,languages.length-1);
+        if(obj.movieState == 0){
+            state = "未上映";
+        }else{
+            state = "已上映";
+        }
         $("#movie_info").append(
             "<div id='movie_div'>"+
             "<img src='../images/"+obj.moviePhoto+"' />"+
             "<p class='pho_name first-p'>"+obj.movieName+ "<span>["+types+"]</span></p>"+
             "<p class='dao'>◎导演：<span>"+obj.movieDirect+"</span></p>"+
             "<p class='yan'>◎演员：<span >"+obj.movieActor+"</span></p>"+
-            "<p class='all'><span>◎地区："+obj.movieArea.movieAreaName+"</span><span>◎语言："+languages+"</span><span>◎年代："+obj.movieDate.movieDateName+"</span><span>◎时长："+obj.movieTime+"分钟</span></p>"+
+            "<p class='all'><span>◎地区："+obj.movieArea.movieAreaName+"</span><span>◎语言："+languages+"</span><span>◎年代："+obj.movieDate.movieDateName+"</span><span>◎时长："+obj.movieTime+"分钟</span><span>◎状态："+state+"</span></p>"+
             "<p class='hpo_desc'>◎描述："+obj.movieDesc+"</p>"+
             "<input type='button' alt='"+obj.movieId+"' class='btn-info' value='操作'/>"+
             "</div>");
-
     });
 
     buttonClick();
@@ -116,8 +121,14 @@ function save(){
             processData: false,//让jquery不处理发送的数据
             contentType: false,//让Jquery不设置Content——Type请求头
             success : function(result){
-                alert(result);
-                location.href = "movieInfo.html";
+                if(result.uploadFile != undefined){
+                    alert(result.uploadFile);
+                }else if(result.message != undefined){
+                    alert(result.message);
+                }else {
+                    alert(result);
+                    location.href = "movieInfo.html";
+                }
             }
         });
     });
@@ -136,6 +147,14 @@ function buttonClick(){
             $("#movieTime").val(result.movieTime);
             $("#movieDirect").val(result.movieDirect);
             $("#movieActor").val(result.movieActor);
+            $("#movieState").empty();
+            if(result.movieState == 0){
+                $("#movieState").append("<option value="+result.movieState+" selected='selected'>未上映</option>");
+                $("#movieState").append("<option value='1'>已上映</option>");
+            }else{
+                $("#movieState").append("<option value="+result.movieState+">已上映</option>");
+                $("#movieState").append("<option value='0'>未上映</option>");
+            }
 
             var movieArea = result.movieArea.movieAreaName;
             $.get("area_findArea", function(result){
@@ -220,8 +239,14 @@ function updateMovie(){
             processData: false,//让jquery不处理发送的数据
             contentType: false,//让Jquery不设置Content——Type请求头
             success : function(result){
-                alert(result);
-                location.href = "movieInfo.html";
+                if(result.uploadFile != undefined){
+                    alert(result.uploadFile);
+                }else if(result.message != undefined){
+                    alert(result.message);
+                }else {
+                    alert(result);
+                    location.href = "movieInfo.html";
+                }
             }
         });
     });

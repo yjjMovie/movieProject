@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface ShowingDao extends BaseDao<Showing> {
 
-    public List<Showing> findHallByCinemaId(String id);
+    public List<Showing> findShowingByCinemaId(String id);
 }

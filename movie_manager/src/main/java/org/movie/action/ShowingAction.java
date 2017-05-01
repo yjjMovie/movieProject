@@ -4,6 +4,7 @@ import org.movie.entity.Cinema;
 import org.movie.entity.Movie;
 import org.movie.entity.Showing;
 import org.movie.exception.NotFoundException;
+import org.movie.service.MovieService;
 import org.movie.service.ShowingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,6 +21,8 @@ public class ShowingAction {
 
     @Autowired
     private ShowingService service;
+    @Autowired
+    private MovieService movieService;
     private Showing showing;
     private Movie movie;
     private Cinema cinema;
@@ -74,6 +77,7 @@ public class ShowingAction {
     }
     public String findShowingByCinemaId(){
         showingList = service.findShowingByCinemaId(cinema.getCinemaId());
+        System.out.println(showingList);
         if(showingList.size() != 0){
             return "findShowingByCinemaId";
         }
@@ -98,6 +102,12 @@ public class ShowingAction {
     public String addShowing() throws Exception {
         Cinema c =  service.findCinameById(cinema.getCinemaId());
         c.setMovieHalls(null);
+
+        //当添加上映电影时，将电影的状态改变
+        movie = movieService.findMovieById(movie.getMovieId());
+        movie.setMovieState(1);
+        movieService.updateMovie(movie);
+
         showing.setMovie(movie);
         showing.getCinemas().add(c);
 

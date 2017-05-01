@@ -1,5 +1,6 @@
 package org.movie.action;
 
+import org.movie.entity.Areas;
 import org.movie.entity.Cinema;
 import org.movie.service.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class CinemaAction {
     private List<Cinema> cinemaList;
     //影院实体类
     private Cinema cinema;
+    private Areas area;
     //返回的信息
     private String message;
 
@@ -39,6 +41,14 @@ public class CinemaAction {
 
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
+    }
+
+    public Areas getArea() {
+        return area;
+    }
+
+    public void setArea(Areas area) {
+        this.area = area;
     }
 
     public String getMessage() {
@@ -62,11 +72,13 @@ public class CinemaAction {
     }
 
     public String updateCinema() throws Exception {
+        cinema.setArea(area);
         message = service.update(cinema);
         return "updateCinema";
     }
 
     public String addCinema() throws Exception {
+        cinema.setArea(area);
         message = service.save(cinema);
         return "addCinema";
     }

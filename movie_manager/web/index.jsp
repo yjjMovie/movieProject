@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <html>
 <head>
     <title>Title</title>
@@ -18,9 +19,10 @@
 
 <div id="all">
     <div id="title">
-        &nbsp&nbsp登录(Login)
+        &nbsp&nbsp系统管理员登录(Login)
     </div>
-    <form id="f1">
+    <div id="actionerror"><s:actionerror /></div>
+    <form id="f1" action="admin_login" method="post">
         <table>
             <tr>
                 <td class="Ye">用&nbsp户&nbsp名：</td>
@@ -33,7 +35,10 @@
                 <td><div id="checkPwd"></div></td>
             </tr>
             <tr>
-                <td colspan="3"><input type="button" name="submit" value="登录" id="submit"></td>
+                <td colspan="3"><input type="submit" name="submit" value="登录" id="submit"></td>
+            </tr>
+            <tr>
+                <td colspan="3">前往影院管理员<a href="cinemaLogin.jsp">登录</a>页面</td>
             </tr>
         </table>
     </form>

@@ -6,7 +6,55 @@
 
 <struts>
 
+    <constant name="struts.json.dateformat" value="yyyy-MM-dd" />
     <package name="struts" extends="struts-default,json-default" strict-method-invocation="false">
+
+        <!-- ~~~~~~~~~~~电影Action~~~~~~~~~~~~ -->
+        <action name="movie_*" class="movieAction" method="{1}">
+            <result  name="findMovieByShow" type="json">
+                <param name="root">movieList</param>
+            </result>
+
+            <result  name="findMovieByPresell" type="json">
+                <param name="root">movieList</param>
+            </result>
+            <result  name="findMovieById" type="json">
+                <param name="root">movie</param>
+            </result>
+
+        </action>
+
+        <!-- ~~~~~~~~~~~城市Action~~~~~~~~~~~~ -->
+        <action name="city_*" class="cityAction" method="{1}">
+            <result  name="findCity" type="json">
+                <param name="root">cityList</param>
+            </result>
+        </action>
+        <!-- ~~~~~~~~~~~区域Action~~~~~~~~~~~~ -->
+        <action name="areas_*" class="areaAction" method="{1}">
+            <result  name="findAreaByCityId" type="json">
+                <param name="root">areaList</param>
+            </result>
+        </action>
+
+        <!-- ~~~~~~~~~~~影院Action~~~~~~~~~~~~ -->
+        <action name="cinema_*" class="cinemaAction" method="{1}">
+            <result  name="findCinemaByAreaId" type="json">
+                <param name="root">cinemaList</param>
+            </result>
+        </action>
+
+        <!-- ~~~~~~~~~~~评论Action~~~~~~~~~~~~ -->
+        <action name="comment_*" class="commentAction" method="{1}">
+            <exception-mapping exception="org.movie.exception.NotFoundException" result="commentNotFound" />
+            <result  name="findCommentByMovieId" type="json">
+                <param name="root">commentList</param>
+            </result>
+            <result name="commentNotFound" type="json">
+                <param name="root">exception</param>
+            </result>
+        </action>
+
 
     </package>
 </struts>

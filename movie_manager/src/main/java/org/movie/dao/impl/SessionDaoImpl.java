@@ -16,7 +16,7 @@ public class SessionDaoImpl extends BaseDaoImpl<MovieSession> implements Session
 
     @Override
     public List<MovieSession> findSessionByCinemaId(String cinemaId) {
-        String jpql = "from MovieSession s where  s.cinema.cinemaId = ?1";
+        String jpql = "from MovieSession s where  s.cinema.cinemaId = ?1 order by s.startTime";
         Query query = em.createQuery(jpql);
         query.setParameter(1,cinemaId);
         return query.getResultList();

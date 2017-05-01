@@ -31,7 +31,11 @@ function addTable(result){
     $("#tab tr:not(:first)").empty();
 
     $.each(result, function(index, obj){
-
+        var columns = "";
+        $.each(obj.hallColumns, function(index, obj){
+            columns += " "+obj.hallRow.hallRowName + obj.hallColumnName+"座";
+        });
+        alert(columns);
         $("table").append("<tr>" +
             "<td>"+(++index)+"</td>"+
             "<td>"+obj.user.userName+"</td>"+
@@ -39,6 +43,7 @@ function addTable(result){
             "<td>"+obj.movieSession.cinema.cinemaName+"</td>"+
             "<td>"+obj.movieSession.cinema.cinemaTel+"</td>"+
             "<td>"+obj.movieSession.movieHall.movieHallName+"</td>"+
+            "<td>"+columns+"</td>"+
             "<td>"+obj.movieSession.startTime+"</td>"+
             "<td>"+obj.itemNum+"</td>"+
             "<td>"+obj.subtotal+"</td>");

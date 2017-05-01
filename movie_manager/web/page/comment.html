@@ -8,6 +8,12 @@
     <script src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <script src="../js/comment.js"></script>
+    <style>
+        textarea {
+            resize: none;
+            width: 300px;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,7 +24,7 @@
     <table class="table table-bordered table-hover table-condensed" id="tab">
         <tr>
             <td>编号</td>
-            <td>评论内容</td>
+            <td width="60%">评论内容</td>
             <td>评论时间</td>
             <td>评论所属用户</td>
             <td>评论所属电影</td>
@@ -54,7 +60,8 @@
                     <!-- 评论内容-->
                     <div class="form-group">
                         评论内容:
-                        <input type="text" class="form-control" name="comment.commentDesc"/>
+                        <textarea rows="5" class="form-control" name="comment.commentDesc"></textarea>
+
                     </div>
                     <!-- 评论所属用户-->
                     <div class="form-group">
@@ -108,7 +115,7 @@
                     <!-- 评论内容-->
                     <div class="form-group">
                         评论内容:
-                        <input type="text" class="form-control" name="comment.commentDesc" id="commentDesc"/>
+                        <textarea rows="5" class="form-control" name="comment.commentDesc"  id="commentDesc"></textarea>
                     </div>
                     <!-- 评论时间-->
                     <div class="form-group">

@@ -15,6 +15,7 @@ function addTable(result){
             "<td>"+(++index)+"</td>"+
             "<td>"+obj.cinemaName+"</td>"+
             "<td>"+obj.cinemaAddr+"</td>"+
+            "<td>"+obj.area.areaName+"</td>"+
             "<td>"+obj.cinemaTel+"</td>"+
             "<td><input  alt='"+obj.cinemaId+"' type='button' class='btn btn-danger btn-sm' value='编辑'></td>");
     });
@@ -24,6 +25,11 @@ function addTable(result){
 function add(){
     $("#addCinema").on("click", function(){
         $("#f1 :input").val("");
+        $.get("areas_findArea", function(result){
+            $.each(result, function(index, obj){
+                $("#area").append("<option value='"+obj.areaId+"'>"+obj.areaName+"</option>");
+            });
+        });
         //显示模式对话框
         $("#addCinemaView").modal("show");
     });
@@ -53,6 +59,19 @@ function buttonClick(){
             $("#cinemaName").val(result.cinemaName);
             $("#cinemaAddr").val(result.cinemaAddr);
             $("#cinemaTel").val(result.cinemaTel);
+
+            var areaName = result.area.areaName;
+
+            $.get("areas_findArea", function(result){
+                $("#areaName").empty();
+                $.each(result, function(key, obj){
+                    if(obj.areaName == areaName){
+                        $("#areaName").append("<option value="+obj.areaId+" selected='selected'>"+obj.areaName+"</option>");
+                    }else{
+                        $("#areaName").append("<option value="+obj.areaId+">"+obj.areaName+"</option>");
+                    }
+                });
+            });
         });
 
         update();

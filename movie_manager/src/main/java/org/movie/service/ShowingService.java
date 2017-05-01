@@ -29,7 +29,7 @@ public class ShowingService {
     }
     public List<Showing> findShowingByCinemaId(String id){
 
-        return dao.findHallByCinemaId(id);
+        return dao.findShowingByCinemaId(id);
     }
 
     public Showing findShowingById(String id){

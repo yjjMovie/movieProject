@@ -21,7 +21,7 @@ public class MovieService {
     String message = "";
 
     public PageBean findMovie(int pageNum) {
-        System.out.println(pageNum);
+        System.out.println("pageNum:"+pageNum);
         PageBean pageBean = new PageBean();
         pageBean.setPageNum(pageNum);
         int row = Integer.parseInt(String.valueOf(dao.count()));
@@ -40,25 +40,15 @@ public class MovieService {
     }
 
     public String updateMovie(Movie movie) {
-        try{
-            dao.update(movie);
-            message = "更新成功";
-        }catch (RuntimeException e){
-            message = "更新失败，请重新操作！";
-            throw e;
-        }
+        dao.update(movie);
+        message = "更新成功";
         return message;
     }
 
     public String saveMovie(Movie movie) {
 
-        try{
-            dao.save(movie);
-            message = "添加成功";
-        }catch (RuntimeException e){
-            message = "添加失败，请重新操作！";
-            throw e;
-        }
+        dao.save(movie);
+        message = "添加成功";
         return message;
     }
 

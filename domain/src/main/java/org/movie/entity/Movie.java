@@ -21,6 +21,7 @@ public class Movie {
     private double movieTime;
     private String movieDirect;
     private String movieActor;
+    private int movieState;
     private Set<MovieType> movieTypes  = new HashSet<>();
     private MovieDate movieDate;
     private Set<MovieLanguage> movieLanguages = new HashSet<>();
@@ -91,6 +92,15 @@ public class Movie {
 
     public void setMovieActor(String movieActor) {
         this.movieActor = movieActor;
+    }
+
+    @Column(name = "movie_state",columnDefinition = "INT default 0")
+    public int getMovieState() {
+        return movieState;
+    }
+
+    public void setMovieState(int movieState) {
+        this.movieState = movieState;
     }
 
     @ManyToMany(fetch=FetchType.EAGER)

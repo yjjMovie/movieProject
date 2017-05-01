@@ -78,7 +78,7 @@ function findHallAndMovieInfo(cinemaId){
             alert(result.message);
         }else{
             $.each(result, function(index, obj){
-                $("#movieName").append("<option value='"+obj.movieId+"'>"+obj.movieName+"</option>");
+                $("#movieName").append("<option value='"+obj.movie.movieId+"'>"+obj.movie.movieName+"</option>");
             });
         }
     });
@@ -91,7 +91,7 @@ function save(){
         var params = $("#f1").serialize();
         $.post("session_addSession", params, function(result){
             alert(result);
-            location.href = "movieSession.html";
+            window.location.reload();
         });
     });
 }
@@ -136,10 +136,10 @@ function buttonClick(){
                 $.get("showing_findShowingByCinemaId", {"cinema.cinemaId":cinemaId}, function(result){
                     $("#movie").empty();
                     $.each(result, function(index,obj){
-                        if(obj.movieName == movieName){
-                            $("#movie").append("<option value='"+obj.movieId+"' selected='selected'>"+obj.movieName+"</option>");
+                        if(obj.movie.movieName == movieName){
+                            $("#movie").append("<option value='"+obj.movie.movieId+"' selected='selected'>"+obj.movie.movieName+"</option>");
                         }else{
-                            $("#movie").append("<option value='"+obj.movieId+"'>"+obj.movieName+"</option>");
+                            $("#movie").append("<option value='"+obj.movie.movieId+"'>"+obj.movie.movieName+"</option>");
                         }
                     });
                 });
@@ -168,7 +168,7 @@ function updateHallAndMovieInfo(cinemaId){
     $.post("showing_findShowingByCinemaId", {"cinema.cinemaId":cinemaId}, function(result){
         $("#movie").empty();
         $.each(result, function(index, obj){
-            $("#movie").append("<option value='"+obj.movieId+"'>"+obj.movieName+"</option>");
+            $("#movie").append("<option value='"+obj.movie.movieId+"'>"+obj.movie.movieName+"</option>");
         });
     });
 }
@@ -183,7 +183,7 @@ function update(){
         $.post("session_updateSession", params ,function(result){
             //更新列表数据
             alert(result);
-            location.href = "movieSession.html";
+            window.location.reload();
         });
     });
 }
@@ -193,7 +193,7 @@ function deleteSession(){
         var params = $("#f2").serialize();
         $.post("session_deleteSession", params, function(result){
             alert(result);
-            location.href = "movieSession.html";
+            window.location.reload();
         })
     });
 }

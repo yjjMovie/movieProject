@@ -11,6 +11,12 @@
 	  <link rel="stylesheet" href="../css/pagination.css">
 	  <link rel="stylesheet" href="../css/movie_info.css">
 	  <script src="../js/movieInfo.js"></script>
+	  <style>
+		  textarea {
+			  resize: none;
+			  width: 300px;
+		  }
+	  </style>
   </head>
 
   <body>
@@ -59,7 +65,7 @@
 						<!-- 电影描述 -->
 						<div class="form-group">
 							电影描述:
-							<input type="text" class="form-control" name="movie.movieDesc" />
+							<textarea rows="5" class="form-control" name="movie.movieDesc"></textarea>
 						</div>
 						<!-- 电影类型 -->
 						<div class="form-group">
@@ -99,6 +105,14 @@
 						<div class="form-group">
 							电影演员:
 							<input type="text" class="form-control" name="movie.movieActor" />
+						</div>
+						<!-- 电影状态 -->
+						<div class="form-group">
+							电影状态:
+							<select name="movie.movieState" class="form-control">
+								<option value="0">未上映</option>
+								<option value="1">已上映</option>
+							</select>
 						</div>
 					</form>
 				</div>
@@ -148,7 +162,7 @@
 						<!-- 电影描述 -->
 						<div class="form-group">
 							电影描述:
-							<input type="text" class="form-control" name="movie.movieDesc" id="movieDesc" />
+							<textarea rows="5" class="form-control" id="movieDesc" name="movie.movieDesc"></textarea>
 						</div>
 						<!-- 电影类型 -->
 						<div class="form-group">
@@ -188,6 +202,12 @@
 						<div class="form-group">
 							电影演员:
 							<input type="text" class="form-control" name="movie.movieActor" id="movieActor" />
+						</div>
+						<!-- 电影状态 -->
+						<div class="form-group">
+							电影状态:
+							<select name="movie.movieState" class="form-control" id="movieState">
+							</select>
 						</div>
 
 					</form>

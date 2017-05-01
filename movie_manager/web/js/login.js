@@ -27,21 +27,21 @@ $(function(){
 
 
 
-    //按钮提交事件
+    /*//按钮提交事件
     $(":button").click(function(){
         if($("#checkName").html() == "√" && $("#checkPwd").html() == "√"){
             var params = $("#f1").serialize();
-            $.post("admin_login", params, function(result){
+            $.post("admin_login", params/!*, function(result){
                 if(result == "登陆成功"){
                     location.href = "page/index.jsp";
                 }else{
                     alert(result);
                 }
-            });
+            }*!/);
         }else{
             alert("验证不通过！");
             return false;
         }
-    });
+    });*/
 
 });

@@ -19,23 +19,28 @@ $(function(){
 function getHallByCinemaId(cid){
 
     $.post("hall_findHallByCinemaId", {"cinema.cinemaId":cid}, function(result){
+
+        $("#selectHall").empty();
+        $.each(result, function(index, obj){
+            $("#selectHall").append("<option value='"+obj.movieHallId+"'>"+obj.movieHallName+"</option>");
+        });
         addTable(result);
         buttonClick();
     });
 }
 function addTable(result){
     $("#tab tr:not(:first)").empty();
-
+    var length = 0;
     $.each(result, function(index, obj){
-
-        $("table").append("<tr>" +
-            "<td>"+(++index)+"</td>"+
-            "<td>"+obj.movieHallName+"</td>"+
-            "<td>"+obj.seatColumn+"</td>"+
-            "<td>"+obj.seatRow+"</td>"+
-            "<td>"+obj.seatingNum+"</td>"+
-            "<td>"+obj.cinema.cinemaName+"</td>"+
-            "<td><input  alt='"+obj.movieHallId+"' type='button' class='btn btn-danger btn-sm' value='编辑'></td>");
+        $.each(obj.hallRows, function(index, obj){
+            var indexs = index;
+            $("#tab").append("<div id='row"+indexs+"' class='hall_row' title='"+obj.hallRowId+"'>"+obj.hallRowName+"</div>");
+            length = obj.hallColumns.length;
+            $.each(obj.hallColumns,function (index,x) {
+                $("#row"+indexs+"").append("<span><div class='colDiv'>"+x.hallColumnName+"</div></span>");
+            });
+            $("#row"+indexs+" span:gt("+(length-1)+")").empty();
+        });
     });
 }
 
@@ -44,6 +49,7 @@ function add(){
     $("#addHall").on("click", function(){
         $("#f1 :input").val("");
         $.get("cinema_findCinema", function(result){
+            $("#cinema1").empty();
             $.each(result, function(index, obj){
                 $("#cinema1").append("<option value='"+obj.cinemaId+"'>"+obj.cinemaName+"</option>");
             });

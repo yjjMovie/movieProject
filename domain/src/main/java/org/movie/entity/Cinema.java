@@ -17,7 +17,9 @@ public class Cinema {
     private String cinemaName;
     private String cinemaAddr;
     private String cinemaTel;
+    private Areas area;
     private Set<MovieHall> movieHalls = new HashSet<>();
+    private Set<CinemaManager> cinemaManagers = new HashSet<>();
 
     @Id
     @GeneratedValue(generator="myuuid")
@@ -58,6 +60,16 @@ public class Cinema {
         this.cinemaTel = cinemaTel;
     }
 
+    @ManyToOne
+    @JoinColumn(name="area_id")
+    public Areas getArea() {
+        return area;
+    }
+
+    public void setArea(Areas area) {
+        this.area = area;
+    }
+
     //一对多关联
     //fetch属性设置加载策略（延迟LAZY或者立即EAGER加载）
     //mappedBy制定维护关系交由给对方
@@ -70,4 +82,12 @@ public class Cinema {
         this.movieHalls = movieHalls;
     }
 
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="cinema")
+    public Set<CinemaManager> getCinemaManagers() {
+        return cinemaManagers;
+    }
+
+    public void setCinemaManagers(Set<CinemaManager> cinemaManagers) {
+        this.cinemaManagers = cinemaManagers;
+    }
 }

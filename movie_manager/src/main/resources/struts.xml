@@ -6,6 +6,7 @@
 
 <struts>
 
+    <constant name="struts.devMode" value="false" />
     <constant name="struts.json.dateformat" value="yyyy-MM-dd HH:mm:ss" />
     <!--设置编码格式，防止上传的文件名为中文的是乱码 -->
     <constant name="struts.i18n.encoding" value="UTF-8" />
@@ -16,14 +17,40 @@
 
     <package name="struts2" extends="struts-default,json-default" strict-method-invocation="false">
 
-        <action name="index" class="adminAction" method="execute">
-            <result name="index">login.jsp</result>
-        </action>
+        <interceptors>
+            <interceptor name="privilegeInterceptor" class="org.movie.interceptor.PrivilegeInterceptor" />
 
-        <!-- ~~~~~~~~~~~管理员Action~~~~~~~~~~~~ -->
+            <interceptor-stack name="myStack">
+                <!-- 配置上传的拦截器 -->
+                <interceptor-ref name="fileUpload">
+                    <!-- 限制上传的文件类型，这里限制为只能上传各种图片类型 -->
+                    <param name="allowedTypes">image/bmp,image/png,image/jpg,image/jpeg,image/JPEG</param>
+                    <!-- 限制上传文件的大小，单位是字节 -->
+                    <param name="maximumSize">2097152</param>
+                </interceptor-ref>
+
+                <!-- 引用默认的拦截器 -->
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
+
+        <!-- 配置首页访问的Action -->
+        <!--<action name="index" class="indexAction">
+            <result name="index">page/index.jsp</result>
+
+            <interceptor-ref name="privilegeInterceptor">
+                <param name="excludeMethods">login</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack">
+            </interceptor-ref>
+        </action>-->
+
+        <!-- ~~~~~~~~~~ 系统管理员Action ~~~~~~~~~~~~~~~ -->
         <action name="admin_*" class="adminAction" method="{1}">
-            <result name="loginFail">login.jsp</result>
-            <result name="loginSuccess">page/index.jsp</result>
+            <result name="loginFail">index.jsp</result>
+            <result name="loginSuccess" type="redirect">page/index.jsp</result>
+
             <result type="json" name="findAdmin">
                 <param name="root">adminList</param>
             </result>
@@ -41,6 +68,106 @@
             </result>
 
             <result type="json" name="deleteAdmin">
+                <param name="root">message</param>
+            </result>
+            <interceptor-ref name="privilegeInterceptor">
+                <param name="excludeMethods">login</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack">
+            </interceptor-ref>
+        </action>
+
+        <!-- ~~~~~~~~~~ 影院管理员Action ~~~~~~~~~~~~~~~ -->
+        <action name="cinemaManager_*" class="cinemaManagerAction" method="{1}">
+            <!-- 配置自定义异常，result对应相应结果集的name属性 -->
+            <exception-mapping result="addFailException" exception="org.movie.exception.NotFoundException"/>
+
+
+            <result name="loginFail">cinemaLogin.jsp</result>
+            <result name="loginSuccess" type="redirect">page/cinema_page/cinemaAdmin.jsp</result>
+            <result name="findCinemaById" type="redirect">page/cinema_page/cinema.jsp</result>
+            <result name="findHallByCinemaId">page/cinema_page/hall.jsp</result>
+            <result name="findSessionByCinemaId">page/cinema_page/session.jsp</result>
+            <result name="findShowingByCinemaId">page/cinema_page/showing.jsp</result>
+            <result name="findCinemaManagerByCinemaId">page/cinema_page/cinemaManager.jsp</result>
+
+            <result type="json" name="findCinemaManager">
+                <param name="root">cinemaManagerList</param>
+            </result>
+
+            <result type="json" name="findCinemaManagerById">
+                <param name="root">cinemaManager</param>
+            </result>
+
+            <result type="json" name="addCinemaManager">
+                <param name="root">message</param>
+            </result>
+
+            <result name="addFailException" type="json">
+                <param name="root">exception</param>
+            </result>
+
+            <result type="json" name="updateCinemaManager">
+                <param name="root">message</param>
+            </result>
+
+            <result type="json" name="deleteCinemaManager">
+                <param name="root">message</param>
+            </result>
+        </action>
+
+
+        <!-- ~~~~~~~~~~~城市Action~~~~~~~~~~~~ -->
+        <action name="city_*" class="cityAction" method="{1}">
+            <result type="json" name="findCity">
+                <param name="root">cityList</param>
+            </result>
+
+            <result type="json" name="findCityById">
+                <param name="root">city</param>
+            </result>
+
+            <result type="json" name="addCity">
+                <param name="root">message</param>
+            </result>
+
+            <result type="json" name="updateCity">
+                <param name="root">message</param>
+            </result>
+
+            <result type="json" name="deleteCity">
+                <param name="root">message</param>
+            </result>
+        </action>
+        <!-- ~~~~~~~~~~~区域Action~~~~~~~~~~~~ -->
+        <action name="areas_*" class="areaAction" method="{1}">
+            <!-- 配置自定义异常，result对应相应结果集的name属性 -->
+            <exception-mapping result="areaNotFound" exception="org.movie.exception.NotFoundException"/>
+
+            <result type="json" name="findArea">
+                <param name="root">areaList</param>
+            </result>
+
+            <result type="json" name="findAreaById">
+                <param name="root">area</param>
+            </result>
+            <result type="json" name="findAreaByCityId">
+                <param name="root">areaList</param>
+            </result>
+            <result name="areaNotFound" type="json">
+                <!-- 将struts2的exception对象设置为root -->
+                <param name="root">exception</param>
+            </result>
+
+            <result type="json" name="addArea">
+                <param name="root">message</param>
+            </result>
+
+            <result type="json" name="updateArea">
+                <param name="root">message</param>
+            </result>
+
+            <result type="json" name="removeArea">
                 <param name="root">message</param>
             </result>
         </action>
@@ -121,6 +248,35 @@
             </result>
             <result name="removeHall" type="json">
                 <param name="root">message</param>
+            </result>
+        </action>
+
+
+        <!-- ~~~~~~~~~~~影厅座位行Action~~~~~~~~~~~~ -->
+        <action name="row_*" class="hallRowAction" method="{1}">
+
+            <!-- 配置自定义异常，result对应相应结果集的name属性 -->
+            <exception-mapping result="rowNotFound" exception="org.movie.exception.NotFoundException"/>
+
+            <result name="findRowByHallId" type="json">
+                <param name="root">rowList</param>
+            </result>
+            <result name="findRowById" type="json">
+                <param name="root">hallRow</param>
+            </result>
+            <result name="addRow" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="updateRow" type="json">
+                <param name="root">message</param>
+            </result>
+            <result name="removeRow" type="json">
+                <param name="root">message</param>
+            </result>
+
+            <result name="rowNotFound" type="json">
+                <!-- 将struts2的exception对象设置为root -->
+                <param name="root">exception</param>
             </result>
         </action>
 
@@ -258,8 +414,16 @@
                 <param name="root">exception</param>
             </result>
 
-            <result name="findSession" type="json">
+            <result name="findSessionByCinemaId" type="json">
                 <param name="root">sessionList</param>
+            </result>
+
+            <result name="findSessionById" type="json">
+                <param name="root">movieSession</param>
+            </result>
+
+            <result name="input" type="json">
+                <param name="root">fieldErrors</param>
             </result>
             <result name="findHallByMovieId" type="json">
                 <param name="root">sessionList</param>
@@ -278,6 +442,7 @@
             </result>
         </action>
 
+        <!-- ~~~~~~~~~~ 订单Action ~~~~~~~~~~~~~~~ -->
         <action name="item_*" class="itemAction" method="{1}">
             <exception-mapping exception="org.movie.exception.NotFoundException" result="resultNotFound" />
             <result name="findItem" type="json">
@@ -291,28 +456,10 @@
             </result>
         </action>
 
-    </package>
 
-
-    <!-- 电影pkg -->
-    <package name="moviePkg" extends="json-default,struts-default" strict-method-invocation="false">
-        <interceptors>
-            <interceptor-stack name="myStack">
-                <!-- 配置上传的拦截器 -->
-                <interceptor-ref name="fileUpload">
-                    <!-- 限制上传的文件类型，这里限制为只能上传各种图片类型 -->
-                    <param name="allowedTypes">image/bmp,image/png,image/jpg,image/jpeg,image/JPEG</param>
-                    <!-- 限制上传文件的大小，单位是字节 -->
-                    <param name="maximumSize">2097152</param>
-                </interceptor-ref>
-
-                <!-- 引用默认的拦截器 -->
-                <interceptor-ref name="defaultStack" />
-            </interceptor-stack>
-        </interceptors>
-
-
+        <!-- ~~~~~~~~~~ 电影信息Action ~~~~~~~~~~~~~~~ -->
         <action name="movie_*" class="movieAction" method="{1}">
+            <exception-mapping exception="org.movie.exception.NotFoundException" result="messageNotFound" />
             <interceptor-ref name="myStack" />
 
             <result name="findMovie" type="json">
@@ -324,6 +471,7 @@
             <result name="findMovieById" type="json">
                 <param name="root">movie</param>
             </result>
+
             <result name="updateMovie" type="json">
                 <param name="root">message</param>
             </result>
@@ -335,6 +483,10 @@
             <!-- struts会见fieldError序列化成json对象 -->
             <result name="input" type="json">
                 <param name="root">fieldErrors</param>
+            </result>
+
+            <result name="messageNotFound" type="json">
+                <param name="root">exception</param>
             </result>
 
             <result name="removeMovie" type="json">

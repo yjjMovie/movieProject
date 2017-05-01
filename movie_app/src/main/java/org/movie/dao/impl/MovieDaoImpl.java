@@ -24,6 +24,20 @@ public class MovieDaoImpl extends BaseDaoImpl<Movie> implements MovieDao {
     }
 
     @Override
+    public List<Movie> findMovieByShow() {
+        String jpql = "from Movie m where m.movieState = 1";
+        Query query = em.createQuery(jpql);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Movie> findMovieByPresell() {
+        String jpql = "from Movie m where m.movieState = 0";
+        Query query = em.createQuery(jpql);
+        return query.getResultList();
+    }
+
+    @Override
     public long count() {
         String jpql = "select count(m) from Movie m";
 
